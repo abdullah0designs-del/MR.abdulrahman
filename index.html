@@ -53,7 +53,6 @@
         .drive-blocker { position: absolute; top: 0; right: 0; width: 70px; height: 70px; z-index: 40; background: transparent; cursor: default; }
         footer { background-color: #2c3e50; color: #ffffff; text-align: center; padding: 20px 0; font-family: 'Tajawal', sans-serif; font-size: 14px; margin-top: 40px; } footer strong { color: #3498db; }
 
-        /* مخصصة لرفع الصور */
         .image-upload-wrapper { position: relative; border: 2px dashed #cbd5e1; border-radius: 1rem; padding: 1.5rem; text-align: center; transition: all 0.3s ease; background-color: #f8fafc; cursor: pointer; overflow: hidden; }
         .image-upload-wrapper:hover { border-color: #4f46e5; background-color: #eef2ff; }
         .image-upload-wrapper.has-image { border-style: solid; padding: 0; border-color: transparent; }
@@ -118,7 +117,6 @@
                 </div>
 
                 <div class="bg-white rounded-3xl sm:shadow-soft sm:border sm:border-slate-100 p-2 sm:p-8">
-                    
                     <!-- Login Form -->
                     <div id="login-form-container">
                         <h3 class="text-2xl font-black text-slate-900 mb-2">تسجيل الدخول</h3>
@@ -303,11 +301,13 @@
                 <div id="courses-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
             </section>
 
-            <!-- Tab: Ask (التحديث الاحترافي للربط مع لوحة التحكم) -->
+            <!-- Tab: Ask -->
             <section id="ask" class="tab-content max-w-5xl mx-auto mt-4 px-2 sm:px-0">
-                <div class="mb-6">
-                    <h2 class="text-2xl font-black text-slate-900 mb-1">مركز مساعدة الطلاب</h2>
-                    <p class="text-slate-500">لديك سؤال في المنهج؟ قم بتصويره أو كتابته وسيقوم المستر بالرد عليك هنا.</p>
+                <div class="mb-6 flex justify-between items-end">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900 mb-1">مركز مساعدة الطلاب</h2>
+                        <p class="text-slate-500 text-sm">يتم حذف الرسائل تلقائياً بعد يومين، اضغط على زر الحفظ للاحتفاظ بها.</p>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -331,14 +331,12 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-1.5">إرفاق صورة (سؤال من كتاب) <span class="text-xs text-slate-400 font-normal">- اختياري</span></label>
-                                
+                                <label class="block text-sm font-bold text-slate-700 mb-1.5">إرفاق صورة <span class="text-xs text-slate-400 font-normal">- اختياري</span></label>
                                 <div class="image-upload-wrapper" id="uploadWrapper">
                                     <input type="file" id="questionImage" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*" capture="environment">
                                     <div id="uploadPlaceholder" class="flex flex-col items-center justify-center text-slate-400 pointer-events-none">
                                         <i class="ph-fill ph-camera text-3xl mb-2 text-indigo-300"></i>
                                         <p class="text-sm font-bold text-slate-600">التقط صورة للسؤال</p>
-                                        <p class="text-xs mt-1">اضغط هنا لفتح الكاميرا أو المعرض</p>
                                     </div>
                                     <img id="imagePreview" alt="معاينة الصورة">
                                     <button type="button" id="removeImageBtn" class="remove-image-btn"><i class="ph-bold ph-trash"></i></button>
@@ -354,13 +352,11 @@
 
                     <!-- سجل الأسئلة السابقة -->
                     <div class="lg:col-span-3 bg-white rounded-[2rem] shadow-soft border border-slate-100 p-6 flex flex-col h-[600px] order-2 lg:order-1">
-                        <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center gap-2 border-b border-slate-100 pb-4">
-                            <i class="ph-fill ph-chats-circle text-primary text-2xl"></i> 
-                            صندوق الوارد الخاص بي
+                        <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center justify-between border-b border-slate-100 pb-4">
+                            <span class="flex items-center gap-2"><i class="ph-fill ph-chats-circle text-primary text-2xl"></i> صندوق الوارد</span>
                         </h3>
                         
                         <div id="questions-history-container" class="flex-1 overflow-y-auto space-y-4 custom-scroll pr-2 pb-4">
-                            <!-- حالة التحميل -->
                             <div class="flex flex-col items-center justify-center py-20 text-center h-full">
                                 <i class="ph-bold ph-spinner-gap animate-spin text-4xl text-slate-300 mb-3"></i>
                                 <p class="text-slate-500 font-medium text-sm">جاري جلب الأسئلة...</p>
@@ -393,14 +389,11 @@
             </div>
         </div>
     </div>
-    <footer id="main-footer" class="hidden">
-        <p>جميع الحقوق محفوظة &copy; 2026 | تصميم وتطوير <strong>عبدالله حسام</strong></p>
-    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, setDoc, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, setDoc, addDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyB3LBifQ9jqKQcI_CkxnJTydyKBLeoXc7w", authDomain: "gam3ea.firebaseapp.com", projectId: "gam3ea", storageBucket: "gam3ea.firebasestorage.app", messagingSenderId: "724318674676", appId: "1:724318674676:web:4f14d1e48394a246b708a1" };
         const app = initializeApp(firebaseConfig);
@@ -415,7 +408,6 @@
         window.approvedCourses = []; 
         window.currentLessonCourse = ''; window.currentAssignmentCourse = '';
         let unsubscribeProfile = null, unsubscribeLessons = null, unsubscribeAssignments = null, unsubscribeCourses = null, unsubscribePayments = null, unsubscribeQuestions = null;
-        
         let compressedImageBase64 = null;
 
         const phoneToEmail = (phone) => `${phone}@student.eng.com`;
@@ -429,12 +421,8 @@
         }
 
         function clearAllSubscriptions() {
-            if(unsubscribeProfile) { unsubscribeProfile(); unsubscribeProfile = null; }
-            if(unsubscribeLessons) { unsubscribeLessons(); unsubscribeLessons = null; }
-            if(unsubscribeAssignments) { unsubscribeAssignments(); unsubscribeAssignments = null; }
-            if(unsubscribeCourses) { unsubscribeCourses(); unsubscribeCourses = null; }
-            if(unsubscribePayments) { unsubscribePayments(); unsubscribePayments = null; }
-            if(unsubscribeQuestions) { unsubscribeQuestions(); unsubscribeQuestions = null; }
+            if(unsubscribeProfile) unsubscribeProfile(); if(unsubscribeLessons) unsubscribeLessons(); if(unsubscribeAssignments) unsubscribeAssignments();
+            if(unsubscribeCourses) unsubscribeCourses(); if(unsubscribePayments) unsubscribePayments(); if(unsubscribeQuestions) unsubscribeQuestions();
             window.approvedCourses = [];
         }
 
@@ -448,40 +436,35 @@
             const splash = document.getElementById('splash-screen');
             const authSec = document.getElementById('auth-section');
             const appSec = document.getElementById('app-section');
-            const footer = document.getElementById('main-footer');
 
             if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.classList.add('hidden'), 500); }
 
             if (user) {
                 authSec.classList.add('hidden'); appSec.classList.remove('hidden'); appSec.classList.add('flex');
-                if (footer) footer.classList.remove('hidden');
                 fetchUserData(user.uid); fetchCourses(); fetchPayments(user.uid); fetchQuestions(user.uid);
             } else {
                 clearAllSubscriptions(); 
                 authSec.classList.remove('hidden'); authSec.classList.add('flex');
                 appSec.classList.add('hidden'); appSec.classList.remove('flex');
-                if (footer) footer.classList.add('hidden');
             }
         });
 
         function fetchUserData(uid) {
-            try {
-                if (unsubscribeProfile) unsubscribeProfile();
-                unsubscribeProfile = onSnapshot(doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info'), (docSnap) => {
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        window.userPhone = data.phone || ''; window.userName = data.name || '';
-                        document.getElementById('dashName').innerText = data.name ? data.name.split(' ')[0] : 'بطل';
-                        document.getElementById('dashNameFull').innerText = data.name || 'طالب';
-                        document.getElementById('dashGrade').innerText = data.grade || '---';
-                        document.getElementById('dashGov').innerText = data.governorate || '---';
-                        document.getElementById('dashPhone').innerText = data.phone || '---';
-                        document.getElementById('dashParentPhone').innerText = data.parentPhone || '---';
-                        document.getElementById('navUserName').innerText = data.name ? data.name.split(' ').slice(0, 2).join(' ') : 'طالب';
-                        document.getElementById('navUserGrade').innerText = data.grade || 'الصف';
-                    } else { document.getElementById('dashNameFull').innerText = 'بيانات غير مكتملة'; }
-                });
-            } catch (error) { console.error(error); }
+            if (unsubscribeProfile) unsubscribeProfile();
+            unsubscribeProfile = onSnapshot(doc(db, 'artifacts', appId, 'users', uid, 'profile', 'info'), (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    window.userPhone = data.phone || ''; window.userName = data.name || '';
+                    document.getElementById('dashName').innerText = data.name ? data.name.split(' ')[0] : 'بطل';
+                    document.getElementById('dashNameFull').innerText = data.name || 'طالب';
+                    document.getElementById('dashGrade').innerText = data.grade || '---';
+                    document.getElementById('dashGov').innerText = data.governorate || '---';
+                    document.getElementById('dashPhone').innerText = data.phone || '---';
+                    document.getElementById('dashParentPhone').innerText = data.parentPhone || '---';
+                    document.getElementById('navUserName').innerText = data.name ? data.name.split(' ').slice(0, 2).join(' ') : 'طالب';
+                    document.getElementById('navUserGrade').innerText = data.grade || 'الصف';
+                }
+            });
         }
 
         const imageInput = document.getElementById('questionImage');
@@ -493,27 +476,19 @@
         imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                if (!file.type.match('image.*')) {
-                    showNotification("الرجاء اختيار ملف صورة صالح", "error"); return;
-                }
+                if (!file.type.match('image.*')) { showNotification("ملف غير صالح", "error"); return; }
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
                     img.onload = function() {
                         const canvas = document.createElement('canvas');
-                        const MAX_WIDTH = 800; const MAX_HEIGHT = 800;
                         let width = img.width; let height = img.height;
-                        if (width > height) { if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; } } 
-                        else { if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; } }
-                        
+                        if (width > height) { if (width > 800) { height *= 800 / width; width = 800; } } 
+                        else { if (height > 800) { width *= 800 / height; height = 800; } }
                         canvas.width = width; canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        
+                        const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
                         compressedImageBase64 = canvas.toDataURL('image/jpeg', 0.7); 
-                        
-                        imagePreview.src = compressedImageBase64;
-                        imagePreview.style.display = 'block'; uploadPlaceholder.style.display = 'none';
+                        imagePreview.src = compressedImageBase64; imagePreview.style.display = 'block'; uploadPlaceholder.style.display = 'none';
                         removeImageBtn.style.display = 'flex'; uploadWrapper.classList.add('has-image');
                     }
                     img.src = e.target.result;
@@ -534,40 +509,41 @@
             const modal = document.getElementById('imageModal');
             modal.classList.remove('hidden'); setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
         }
-
         window.closeImageModal = function() {
             const modal = document.getElementById('imageModal');
-            modal.classList.remove('opacity-100');
-            setTimeout(() => { modal.classList.add('hidden'); document.getElementById('fullSizeImage').src = ''; }, 300);
+            modal.classList.remove('opacity-100'); setTimeout(() => { modal.classList.add('hidden'); document.getElementById('fullSizeImage').src = ''; }, 300);
         }
 
+        // دالة حفظ / إلغاء حفظ السؤال
+        window.toggleSaveQuestion = async function(questionId, currentSavedState) {
+            try {
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', questionId), {
+                    savedByStudent: !currentSavedState
+                });
+                showNotification(!currentSavedState ? "تم حفظ الرسالة" : "تم إلغاء الحفظ", "success");
+            } catch (error) {
+                console.error(error); showNotification("حدث خطأ", "error");
+            }
+        };
+
         document.getElementById('askForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentUser) return;
-            
+            e.preventDefault(); if (!currentUser) return;
             const text = document.getElementById('questionText').value.trim();
             if (!text && !compressedImageBase64) { showNotification("يرجى كتابة سؤال أو إرفاق صورة", "error"); return; }
-
             const btn = document.getElementById('submitQuestionBtn');
             const ogText = btn.innerHTML; btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin"></i> جاري الإرسال...'; btn.disabled = true;
 
             try {
-                // حفظ السؤال في مسار عام (Public) لكي يستطيع المستر رؤيته من لوحة التحكم الجديدة
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'questions'), {
-                    userId: currentUser.uid,
-                    userName: window.userName || 'طالب غير مسجل الاسم',
-                    userPhone: window.userPhone || 'بدون رقم',
-                    text: text,
-                    imageUrl: compressedImageBase64 || null,
-                    status: 'pending',
-                    replyText: '',
+                    userId: currentUser.uid, userName: window.userName || 'طالب غير مسجل', userPhone: window.userPhone || 'بدون رقم',
+                    text: text, imageUrl: compressedImageBase64 || null, status: 'pending', replyText: '', 
+                    savedByStudent: false, // القيمة الافتراضية للحفظ هي False
                     createdAt: new Date().getTime(),
                     dateFormatted: new Date().toLocaleString('ar-EG', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' })
                 });
                 showNotification("تم إرسال سؤالك للمستر بنجاح!", "success");
                 document.getElementById('askForm').reset(); removeImageBtn.click();
-            } catch (error) { console.error(error); showNotification("حدث خطأ أثناء الإرسال", "error"); } 
-            finally { btn.innerHTML = ogText; btn.disabled = false; }
+            } catch (error) { showNotification("حدث خطأ", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
         });
 
         function fetchQuestions(uid) {
@@ -575,18 +551,26 @@
             const container = document.getElementById('questions-history-container');
             if (unsubscribeQuestions) unsubscribeQuestions();
             
-            // جلب الأسئلة من المسار العام وتصفيتها للطالب الحالي محلياً
+            const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
+
             unsubscribeQuestions = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'questions'), (snapshot) => {
                 container.innerHTML = '';
                 const questionsList = [];
+                const now = new Date().getTime();
                 
                 snapshot.forEach(doc => {
                     const data = doc.data();
-                    if (data.userId === uid) { questionsList.push({ id: doc.id, ...data }); }
+                    if (data.userId === uid) {
+                        const isExpired = (now - data.createdAt) > TWO_DAYS_MS;
+                        // اعرض السؤال إذا لم ينتهِ وقته (أقل من يومين) أو إذا قام الطالب بحفظه
+                        if (!isExpired || data.savedByStudent === true) {
+                            questionsList.push({ id: doc.id, ...data });
+                        }
+                    }
                 });
                 
                 if (questionsList.length === 0) {
-                    container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center h-full"><div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-chat-teardrop-text text-4xl"></i></div><h4 class="text-lg font-bold text-slate-700 mb-1">لا توجد أسئلة سابقة</h4><p class="text-slate-500 text-sm">أرسل سؤالك الأول من النموذج الجانبي وسيتم الرد عليك.</p></div>`;
+                    container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center h-full"><div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-chat-teardrop-text text-4xl"></i></div><h4 class="text-lg font-bold text-slate-700 mb-1">لا توجد أسئلة سابقة</h4><p class="text-slate-500 text-sm">أرسل سؤالك وسيتم الرد عليك.</p></div>`;
                     return;
                 }
 
@@ -597,6 +581,7 @@
                     const statusColor = isAnswered ? 'text-teal-600 bg-teal-50' : 'text-amber-600 bg-amber-50';
                     const statusIcon = isAnswered ? 'ph-check-circle' : 'ph-hourglass-high';
                     const statusText = isAnswered ? 'تم الرد' : 'جاري الرد';
+                    const isSaved = data.savedByStudent === true;
                     
                     let imageHtml = '';
                     if (data.imageUrl) {
@@ -605,191 +590,100 @@
 
                     let replyHtml = '';
                     if (isAnswered && data.replyText) {
-                        replyHtml = `<div class="mt-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 relative"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary rounded-r-xl"></div><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="ph-fill ph-chalkboard-teacher"></i></div><span class="text-xs font-black text-slate-800">رد المستر:</span></div><p class="text-sm text-slate-700 font-medium leading-relaxed whitespace-pre-wrap mr-8">${data.replyText}</p></div>`;
+                        replyHtml = `<div class="mt-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 relative"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary rounded-r-xl"></div><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="ph-fill ph-chalkboard-teacher"></i></div><span class="text-xs font-black text-slate-800">رد المستر:</span></div></div><p class="text-sm text-slate-700 font-medium leading-relaxed whitespace-pre-wrap mr-8">${data.replyText}</p></div>`;
                     }
 
-                    const card = `<div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden"><div class="flex justify-between items-start mb-3"><span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span><span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span></div><p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>${imageHtml}${replyHtml}</div>`;
+                    const card = `
+                    <div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden mb-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleSaveQuestion('${data.id}', ${isSaved})" class="${isSaved ? 'text-primary bg-indigo-50 border-indigo-200' : 'text-slate-400 bg-slate-50 border-slate-200'} border px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all" title="حفظ الرسالة">
+                                    <i class="${isSaved ? 'ph-fill' : 'ph-bold'} ph-bookmark-simple"></i> ${isSaved ? 'محفوظة' : 'حفظ'}
+                                </button>
+                                <span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span>
+                            </div>
+                        </div>
+                        <p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>
+                        ${imageHtml}
+                        ${replyHtml}
+                    </div>`;
                     container.insertAdjacentHTML('beforeend', card);
                 });
-            }, (err) => handleSnapshotError(err, 'questions-history-container'));
+            }, (err) => { if(err.code!=='permission-denied') console.error(err); });
         }
 
         function fetchCourses() {
             if (!currentUser) return;
-            const container = document.getElementById('courses-container');
-            const payItemSelect = document.getElementById('payItem');
-            showLoading(container, 'text-teal-500');
-            
             if (unsubscribeCourses) unsubscribeCourses();
             unsubscribeCourses = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'courses'), (snapshot) => {
-                payItemSelect.innerHTML = '<option value="" disabled selected>اختر الكورس...</option>';
-                if (snapshot.empty) { showEmptyState(container, 'books', 'لا توجد كورسات', 'سيتم الرفع قريباً.'); return; }
-                container.innerHTML = '';
+                document.getElementById('payItem').innerHTML = '<option value="" disabled selected>اختر الكورس...</option>';
+                document.getElementById('courses-container').innerHTML = '';
+                if (snapshot.empty) { document.getElementById('courses-container').innerHTML = '<p class="text-center w-full">لا توجد كورسات</p>'; return; }
                 snapshot.forEach(doc => {
                     const data = doc.data();
-                    container.insertAdjacentHTML('beforeend', createCourseCard(data));
-                    payItemSelect.insertAdjacentHTML('beforeend', `<option value="${data.title}">${data.title}</option>`);
+                    document.getElementById('courses-container').insertAdjacentHTML('beforeend', createCourseCard(data));
+                    document.getElementById('payItem').insertAdjacentHTML('beforeend', `<option value="${data.title}">${data.title}</option>`);
                 });
-            }, (err) => handleSnapshotError(err, 'courses-container'));
+            });
         }
 
         function fetchPayments(uid) {
             if (!currentUser) return;
-            const container = document.getElementById('payments-container');
             if (unsubscribePayments) unsubscribePayments();
-            
             unsubscribePayments = onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'payments'), (snapshot) => {
-                container.innerHTML = ''; window.approvedCourses = []; let hasPayments = false;
-
+                document.getElementById('payments-container').innerHTML = ''; window.approvedCourses = [];
                 snapshot.forEach(doc => {
-                    hasPayments = true;
                     const data = doc.data();
-                    if (data.status === 'مفعل' && data.item && !window.approvedCourses.includes(data.item)) window.approvedCourses.push(data.item);
-
-                    let statusColor = "bg-amber-100 text-amber-600"; let icon = "ph-hourglass";
-                    if(data.status === 'مفعل') { statusColor = "bg-teal-100 text-teal-600"; icon = "ph-check-circle"; }
-                    if(data.status === 'مرفوض') { statusColor = "bg-red-100 text-red-600"; icon = "ph-x-circle"; }
-
-                    container.insertAdjacentHTML('beforeend', `<div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-between items-center transition hover:shadow-sm"><div><h4 class="font-bold text-slate-800 text-sm mb-1">${data.item}</h4><p class="text-xs font-medium text-slate-500">${data.date} | ${data.amount} جنيه</p></div><div class="${statusColor} px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1"><i class="ph-bold ${icon}"></i> ${data.status}</div></div>`);
+                    if (data.status === 'مفعل' && data.item) window.approvedCourses.push(data.item);
+                    document.getElementById('payments-container').insertAdjacentHTML('beforeend', `<div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-between items-center mb-3"><div><h4 class="font-bold text-slate-800 text-sm mb-1">${data.item}</h4></div><div class="bg-slate-100 px-3 py-1.5 rounded-lg text-xs font-bold">${data.status}</div></div>`);
                 });
-                if (!hasPayments) container.innerHTML = `<div class="flex flex-col items-center justify-center py-6 text-center"><div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-3 text-slate-300"><i class="ph-fill ph-receipt text-3xl"></i></div><p class="text-slate-500 font-medium text-sm">لا توجد طلبات سابقة.</p></div>`;
                 updateContentAccess();
             });
         }
 
         document.getElementById('paymentForm').addEventListener('submit', async (e) => {
             e.preventDefault(); if (!currentUser) return;
-            const btn = document.getElementById('btnSubmitPayment'); const ogText = btn.innerHTML; btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin"></i>'; btn.disabled = true;
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'users', currentUser.uid, 'payments'), {
                     item: document.getElementById('payItem').value, amount: document.getElementById('payAmount').value, senderPhone: document.getElementById('paySender').value, status: 'قيد المراجعة', date: new Date().toLocaleDateString('ar-EG'), createdAt: new Date().toISOString()
                 });
-                showNotification("تم إرسال الطلب، جاري المراجعة!", "success"); document.getElementById('paymentForm').reset();
-            } catch(e) { showNotification("حدث خطأ", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
+                showNotification("تم الإرسال!", "success"); document.getElementById('paymentForm').reset();
+            } catch(e) {}
         });
 
         function updateContentAccess() {
             const hasCourses = window.approvedCourses.length > 0;
-            
             document.getElementById('lessons-locked').classList.toggle('hidden', hasCourses);
             document.getElementById('lessons-unlocked').classList.toggle('hidden', !hasCourses);
-            const lessonSelect = document.getElementById('lessons-course-selector');
-            
             document.getElementById('assignments-locked').classList.toggle('hidden', hasCourses);
             document.getElementById('assignments-unlocked').classList.toggle('hidden', !hasCourses);
-            const assignSelect = document.getElementById('assignments-course-selector');
-
             if (hasCourses) {
-                const options = window.approvedCourses.map(c => `<option value="${c}">${c}</option>`).join('');
-                lessonSelect.innerHTML = options; assignSelect.innerHTML = options;
-                
+                const opts = window.approvedCourses.map(c => `<option value="${c}">${c}</option>`).join('');
+                document.getElementById('lessons-course-selector').innerHTML = opts; document.getElementById('assignments-course-selector').innerHTML = opts;
                 if (!window.approvedCourses.includes(window.currentLessonCourse)) window.currentLessonCourse = window.approvedCourses[0];
                 if (!window.approvedCourses.includes(window.currentAssignmentCourse)) window.currentAssignmentCourse = window.approvedCourses[0];
-                
-                lessonSelect.value = window.currentLessonCourse; assignSelect.value = window.currentAssignmentCourse;
-
                 fetchLessons(); fetchAssignments();
             }
         }
-
-        window.changeActiveCourse = function(type, courseVal) {
-            if (type === 'lessons') { window.currentLessonCourse = courseVal; fetchLessons(); } 
-            else { window.currentAssignmentCourse = courseVal; fetchAssignments(); }
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('loginBtn'); const ogText = btn.innerHTML; btn.innerHTML = 'جاري...'; btn.disabled = true;
-            try { await signInWithEmailAndPassword(auth, phoneToEmail(document.getElementById('loginPhone').value), document.getElementById('loginPassword').value); } 
-            catch (error) { showNotification("البيانات غير صحيحة", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
-        });
-
+        window.changeActiveCourse = function(type, val) { if (type === 'lessons') { window.currentLessonCourse = val; fetchLessons(); } else { window.currentAssignmentCourse = val; fetchAssignments(); } }
+        document.getElementById('loginForm').addEventListener('submit', async (e) => { e.preventDefault(); try { await signInWithEmailAndPassword(auth, phoneToEmail(document.getElementById('loginPhone').value), document.getElementById('loginPassword').value); } catch(e){ showNotification("بيانات خاطئة", "error"); } });
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('regBtn'); const ogText = btn.innerHTML; btn.innerHTML = 'جاري...'; btn.disabled = true;
-            try {
-                const phone = document.getElementById('regPhone').value;
-                const userCred = await createUserWithEmailAndPassword(auth, phoneToEmail(phone), document.getElementById('regPassword').value);
-                await setDoc(doc(db, 'artifacts', appId, 'users', userCred.user.uid, 'profile', 'info'), {
-                    name: document.getElementById('regName').value, grade: document.getElementById('regGrade').value, governorate: document.getElementById('regGov').value, phone: phone, parentPhone: document.getElementById('regParentPhone').value, createdAt: new Date().toISOString()
-                });
-                showNotification("تم إنشاء الحساب بنجاح!"); document.getElementById('registerForm').reset();
-            } catch (error) { 
-                if (error.code === 'auth/email-already-in-use') showNotification("رقم الهاتف مستخدم مسبقاً", "error");
-                else showNotification("حدث خطأ", "error"); 
-            } finally { btn.innerHTML = ogText; btn.disabled = false; }
+            e.preventDefault(); try {
+                const p = document.getElementById('regPhone').value; const cred = await createUserWithEmailAndPassword(auth, phoneToEmail(p), document.getElementById('regPassword').value);
+                await setDoc(doc(db, 'artifacts', appId, 'users', cred.user.uid, 'profile', 'info'), { name: document.getElementById('regName').value, grade: document.getElementById('regGrade').value, governorate: document.getElementById('regGov').value, phone: p, parentPhone: document.getElementById('regParentPhone').value, createdAt: new Date().toISOString() });
+                showNotification("تم!"); document.getElementById('registerForm').reset();
+            } catch(e){}
         });
-
-        window.logoutUser = async function() { try { clearAllSubscriptions(); await signOut(auth); document.getElementById('loginForm').reset(); document.getElementById('registerForm').reset(); } catch (error) {} };
-
-        window.switchTab = function(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            
-            document.querySelectorAll('.desktop-nav-btn').forEach(btn => { btn.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm'); btn.classList.add('text-slate-500'); });
-            document.querySelectorAll(`.desktop-nav-btn[onclick*="switchTab('${tabId}')"]`).forEach(b => { b.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm'); b.classList.remove('text-slate-500'); });
-            document.querySelectorAll('.mobile-nav-btn').forEach(btn => { btn.classList.remove('active', 'text-primary'); btn.classList.add('text-slate-400'); btn.querySelector('i').classList.remove('-translate-y-1'); });
-            document.querySelectorAll(`.mobile-nav-btn[onclick*="switchTab('${tabId}')"]`).forEach(b => { b.classList.add('active', 'text-primary'); b.classList.remove('text-slate-400'); b.querySelector('i').classList.add('-translate-y-1'); });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
-        window.openModal = function(title, driveUrl) {
-            document.getElementById('modalTitle').innerText = title;
-            let embedUrl = driveUrl.includes('drive.google.com/file/d/') ? driveUrl.replace('/view', '/preview') : driveUrl;
-            document.getElementById('watermark').innerText = (window.userPhone ? window.userPhone + ' - ' : '') + (window.userName || '');
-            const modal = document.getElementById('driveModal'); const content = document.getElementById('modalContent');
-            modal.classList.remove('hidden'); setTimeout(() => { modal.classList.add('opacity-100'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
-            document.getElementById('driveFrame').src = embedUrl; document.body.style.overflow = 'hidden'; 
-        };
-
-        window.closeModal = function() {
-            const modal = document.getElementById('driveModal'); const content = document.getElementById('modalContent');
-            modal.classList.remove('opacity-100'); content.classList.remove('scale-100'); content.classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); document.getElementById('driveFrame').src = ''; document.body.style.overflow = ''; }, 300); 
-        };
-
-        function handleSnapshotError(error, containerId) { if (error.code === 'permission-denied') showError(containerId, 'يرجى تحديث قواعد الفايربيز.'); else showError(containerId, 'تعذر الاتصال بالخادم.'); }
-
-        function fetchLessons() {
-            if (!currentUser || window.approvedCourses.length === 0) return;
-            const container = document.getElementById('lessons-container'); showLoading(container, 'text-primary');
-            if (unsubscribeLessons) unsubscribeLessons();
-            unsubscribeLessons = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `lessons`), (snapshot) => {
-                container.innerHTML = ''; let count = 0;
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.course === window.currentLessonCourse) { container.insertAdjacentHTML('beforeend', createLessonCard(data)); count++; }
-                });
-                if(count === 0) showEmptyState(container, 'monitor-play', 'لا توجد دروس حالياً', 'لا يوجد محتوى في الكورس المختار.');
-            }, (err) => handleSnapshotError(err, 'lessons-container'));
-        }
-
-        function fetchAssignments() {
-            if (!currentUser || window.approvedCourses.length === 0) return;
-            const container = document.getElementById('assignments-container'); showLoading(container, 'text-orange-500');
-            if (unsubscribeAssignments) unsubscribeAssignments();
-            unsubscribeAssignments = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `assignments`), (snapshot) => {
-                container.innerHTML = ''; let count = 0;
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.course === window.currentAssignmentCourse) { container.insertAdjacentHTML('beforeend', createAssignmentCard(data)); count++; }
-                });
-                if(count === 0) showEmptyState(container, 'files', 'لا توجد واجبات', 'لا يوجد محتوى في الكورس المختار.');
-            }, (err) => handleSnapshotError(err, 'assignments-container'));
-        }
-
-        function createLessonCard(data) { return `<div class="group bg-white rounded-[2rem] p-6 shadow-soft border border-slate-100 flex flex-col justify-between transition hover:-translate-y-1"><div><div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-white transition"><i class="ph-fill ph-play text-2xl"></i></div><h3 class="text-xl font-black text-slate-900 mb-2 leading-tight">${data.title}</h3><p class="text-sm font-medium text-slate-500 mb-6 line-clamp-2">${data.description || ''}</p></div><button onclick="openModal('${data.title}', '${data.driveUrl}')" class="w-full bg-slate-50 hover:bg-primary text-primary hover:text-white font-bold py-3.5 rounded-xl transition flex justify-center items-center gap-2"><span>شاهد الدرس</span><i class="ph-bold ph-arrow-left"></i></button></div>`; }
-        function createAssignmentCard(data) { return `<div class="group bg-white rounded-[2rem] p-6 shadow-soft border border-slate-100 flex flex-col justify-between transition hover:-translate-y-1"><div class="flex flex-col mb-6"><div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-500 mb-5 group-hover:bg-orange-500 group-hover:text-white transition"><i class="ph-fill ph-file-pdf text-3xl"></i></div><h3 class="text-lg font-black text-slate-900 leading-tight mb-1">${data.title}</h3><p class="text-sm font-bold text-slate-400 flex items-center gap-1 mt-1"><i class="ph-bold ph-calendar-blank"></i> ${data.date}</p></div><button onclick="openModal('${data.title}', '${data.driveUrl}')" class="w-full bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white font-bold py-3.5 rounded-xl transition flex justify-center items-center gap-2"><span>فتح الواجب</span><i class="ph-bold ph-arrow-up-right"></i></button></div>`; }
-        function createCourseCard(data) {
-            const img = data.imageUrl || 'https://images.unsplash.com/photo-1632559648939-f9c34e7bb419?auto=format&fit=crop&w=800&q=80'; 
-            const isSubscribed = window.approvedCourses && window.approvedCourses.includes(data.title);
-            const actionHTML = isSubscribed ? `<div class="mt-auto flex items-center text-teal-500 font-bold text-sm gap-1">تصفح الكورس <i class="ph-bold ph-arrow-left"></i></div>` : `<div class="mt-auto flex items-center text-slate-400 font-bold text-sm gap-1"><i class="ph-bold ph-lock-key"></i> اشترك لفتح المحتوى</div>`;
-            const clickAction = isSubscribed ? `openModal('${data.title}', '${data.driveUrl}')` : `switchTab('subscriptions'); showNotification('قم بالاشتراك في هذا الكورس أولاً', 'error');`;
-            return `<div class="group bg-white rounded-[2rem] overflow-hidden shadow-soft border border-slate-100 cursor-pointer transition hover:-translate-y-2 flex flex-col" onclick="${clickAction}"><div class="h-56 relative m-2 rounded-[1.5rem] overflow-hidden"><img src="${img}" alt="${data.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"><div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex flex-col justify-between"><div class="p-4 flex justify-end"><span class="bg-white/95 backdrop-blur-md text-teal-600 text-xs font-black px-3 py-1.5 rounded-lg shadow-sm">${data.badge || 'جديد'}</span></div></div></div><div class="p-6 pt-4 flex-grow flex flex-col"><h3 class="text-xl font-black text-slate-900 mb-2 line-clamp-2 leading-tight group-hover:text-teal-500 transition-colors">${data.title}</h3><p class="text-slate-500 text-sm font-medium leading-relaxed line-clamp-2 mb-4">${data.description}</p>${actionHTML}</div></div>`;
-        }
-        function showLoading(container, colorClass) { container.innerHTML = `<div class="col-span-full text-center py-20"><i class="ph-bold ph-circle-notch animate-spin text-4xl ${colorClass} mb-4 inline-block"></i><p class="font-bold text-slate-500">جاري تحميل البيانات...</p></div>`; }
-        function showEmptyState(container, icon, title, desc) { container.innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-24 px-4 bg-white rounded-[2rem] border border-dashed border-slate-200 text-center"><div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-5"><i class="ph-fill ph-${icon} text-4xl text-slate-300"></i></div><h3 class="text-xl font-black text-slate-800 mb-2">${title}</h3><p class="text-slate-500 font-medium max-w-xs">${desc}</p></div>`; }
-        function showError(containerId, message) { document.getElementById(containerId).innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-16 text-center"><i class="ph-fill ph-warning-circle text-5xl text-red-400 mb-4"></i><p class="text-slate-700 font-bold text-lg">${message}</p></div>`; }
+        window.logoutUser = async function() { clearAllSubscriptions(); await signOut(auth); };
+        window.switchTab = function(tabId) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.getElementById(tabId).classList.add('active'); };
+        window.openModal = function(t, url) { document.getElementById('driveModal').classList.remove('hidden'); setTimeout(()=>{document.getElementById('driveModal').classList.add('opacity-100'); document.getElementById('modalContent').classList.remove('scale-95');},10); document.getElementById('driveFrame').src=url.replace('/view', '/preview'); };
+        window.closeModal = function() { document.getElementById('driveModal').classList.remove('opacity-100'); document.getElementById('modalContent').classList.add('scale-95'); setTimeout(()=>{document.getElementById('driveModal').classList.add('hidden'); document.getElementById('driveFrame').src='';},300); };
+        function fetchLessons() { if(!currentUser || window.approvedCourses.length===0)return; if(unsubscribeLessons) unsubscribeLessons(); unsubscribeLessons = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `lessons`), (snap) => { document.getElementById('lessons-container').innerHTML = ''; snap.forEach(doc => { const d = doc.data(); if(d.course === window.currentLessonCourse) document.getElementById('lessons-container').insertAdjacentHTML('beforeend', createLessonCard(d)); }); }); }
+        function fetchAssignments() { if(!currentUser || window.approvedCourses.length===0)return; if(unsubscribeAssignments) unsubscribeAssignments(); unsubscribeAssignments = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `assignments`), (snap) => { document.getElementById('assignments-container').innerHTML = ''; snap.forEach(doc => { const d = doc.data(); if(d.course === window.currentAssignmentCourse) document.getElementById('assignments-container').insertAdjacentHTML('beforeend', createAssignmentCard(d)); }); }); }
+        function createLessonCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100"><h3 class="font-black text-lg mb-4">${d.title}</h3><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-primary py-2 rounded-xl font-bold">شاهد</button></div>`; }
+        function createAssignmentCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100"><h3 class="font-black text-lg mb-4">${d.title}</h3><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-orange-600 py-2 rounded-xl font-bold">افتح</button></div>`; }
+        function createCourseCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100"><h3 class="font-black text-lg mb-2">${d.title}</h3><p class="text-sm text-slate-500 mb-4 line-clamp-2">${d.description}</p></div>`; }
     </script>
 </body>
 </html>
