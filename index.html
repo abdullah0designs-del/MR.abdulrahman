@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>English genius</title>
+    <title>منصة اللغة الإنجليزية الاحترافية</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -61,19 +61,6 @@
         
         .question-card { transition: all 0.3s ease; border: 1px solid #e2e8f0; }
         .question-card:hover { border-color: #4f46e5; box-shadow: 0 4px 20px -5px rgba(79, 70, 229, 0.15); }
-        footer {
-            background-color: #2c3e50; /* لون الخلفية (كحلي داكن) */
-            color: #ffffff;            /* لون النص (أبيض) */
-            text-align: center;        /* توسيط النص */
-            padding: 20px 0;           /* مسافة داخلية من الأعلى والأسفل */
-            font-family: Arial, sans-serif; /* نوع الخط */
-            font-size: 16px;           /* حجم الخط */
-            margin-top: 40px;          /* مسافة لتبديل التذييل عن محتوى الموقع */
-        }
-
-        footer strong {
-            color: #3498db;            /* إعطاء اسمك لوناً مختلفاً لإبرازه (أزرق فاتح) */
-        }
     </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col relative overflow-x-hidden">
@@ -109,7 +96,7 @@
             <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2"></div>
             <div class="relative z-10 flex flex-col items-center text-center max-w-md">
                 <div class="w-64 h-64 rounded-[2.5rem] bg-indigo-50 border-4 border-white shadow-2xl mb-8 flex items-center justify-center overflow-hidden relative">
-                    <img src="img1" alt="صورة الأستاذ" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?auto=format&fit=crop&w=800&q=80" alt="صورة الأستاذ" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/40 to-transparent"></div>
                     <div class="absolute bottom-4 left-0 w-full text-center">
                         <span class="bg-white/90 backdrop-blur text-primary font-black px-4 py-1.5 rounded-full text-sm shadow-sm">مـــســـتـــر عـــبـــد الـــــرحـــمــــن حـــسـنــي</span>
@@ -328,40 +315,55 @@
                     <!-- صندوق إرسال سؤال جديد -->
                     <div class="lg:col-span-2 bg-white rounded-[2rem] shadow-soft border border-slate-100 p-6 relative overflow-hidden h-fit order-1 lg:order-2">
                         <div class="flex items-center gap-3 mb-6 relative z-10 border-b border-slate-100 pb-4">
-                            <div class="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center shrink-0"><i class="ph-fill ph-paper-plane-tilt text-2xl text-primary"></i></div>
-                            <div><h2 class="text-lg font-black text-slate-900">أرسل سؤالاً</h2><p class="text-xs text-slate-500 font-bold">سيتم الرد في أقرب وقت ممكن</p></div>
+                            <div class="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center shrink-0">
+                                <i class="ph-fill ph-paper-plane-tilt text-2xl text-primary"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-black text-slate-900">أرسل سؤالاً</h2>
+                                <p class="text-xs text-slate-500 font-bold">سيتم الرد في أقرب وقت ممكن</p>
+                            </div>
                         </div>
+
                         <form id="askForm" class="space-y-4 relative z-10">
                             <div>
                                 <label class="block text-sm font-bold text-slate-700 mb-1.5">اكتب سؤالك بوضوح</label>
                                 <textarea id="questionText" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-slate-800 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none h-32 text-sm" placeholder="مثال: لماذا استخدمنا الماضي التام في هذه الجملة؟..."></textarea>
                             </div>
+
                             <div>
                                 <label class="block text-sm font-bold text-slate-700 mb-1.5">إرفاق صورة <span class="text-xs text-slate-400 font-normal">- اختياري</span></label>
                                 <div class="image-upload-wrapper" id="uploadWrapper">
                                     <input type="file" id="questionImage" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*" capture="environment">
                                     <div id="uploadPlaceholder" class="flex flex-col items-center justify-center text-slate-400 pointer-events-none">
-                                        <i class="ph-fill ph-camera text-3xl mb-2 text-indigo-300"></i><p class="text-sm font-bold text-slate-600">التقط صورة للسؤال</p>
+                                        <i class="ph-fill ph-camera text-3xl mb-2 text-indigo-300"></i>
+                                        <p class="text-sm font-bold text-slate-600">التقط صورة للسؤال</p>
                                     </div>
                                     <img id="imagePreview" alt="معاينة الصورة">
                                     <button type="button" id="removeImageBtn" class="remove-image-btn"><i class="ph-bold ph-trash"></i></button>
                                 </div>
                             </div>
+
                             <button type="submit" id="submitQuestionBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition-all flex justify-center items-center gap-2 shadow-md mt-2">
-                                <span>إرسال للمستر</span><i class="ph-bold ph-paper-plane-right"></i>
+                                <span>إرسال للمستر</span>
+                                <i class="ph-bold ph-paper-plane-right"></i>
                             </button>
                         </form>
                     </div>
 
                     <!-- سجل الأسئلة السابقة -->
                     <div class="lg:col-span-3 bg-white rounded-[2rem] shadow-soft border border-slate-100 p-6 flex flex-col h-[600px] order-2 lg:order-1">
-                        <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center justify-between border-b border-slate-100 pb-4"><span class="flex items-center gap-2"><i class="ph-fill ph-chats-circle text-primary text-2xl"></i> صندوق الوارد</span></h3>
+                        <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center justify-between border-b border-slate-100 pb-4">
+                            <span class="flex items-center gap-2"><i class="ph-fill ph-chats-circle text-primary text-2xl"></i> صندوق الوارد</span>
+                        </h3>
+                        
                         <div id="questions-history-container" class="flex-1 overflow-y-auto space-y-4 custom-scroll pr-2 pb-4">
                             <div class="flex flex-col items-center justify-center py-20 text-center h-full">
-                                <i class="ph-bold ph-spinner-gap animate-spin text-4xl text-slate-300 mb-3"></i><p class="text-slate-500 font-medium text-sm">جاري جلب الأسئلة...</p>
+                                <i class="ph-bold ph-spinner-gap animate-spin text-4xl text-slate-300 mb-3"></i>
+                                <p class="text-slate-500 font-medium text-sm">جاري جلب الأسئلة...</p>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </section>
         </main>
@@ -377,15 +379,17 @@
             <div class="bg-slate-100 p-2 sm:p-4">
                 <div class="iframe-container">
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 z-0">
-                        <i class="ph-bold ph-spinner-gap animate-spin text-4xl mb-2 text-primary"></i><p class="font-medium">جاري تحميل المستند...</p>
+                        <i class="ph-bold ph-spinner-gap animate-spin text-4xl mb-2 text-primary"></i>
+                        <p class="font-medium">جاري تحميل المستند...</p>
                     </div>
                     <iframe id="driveFrame" src="" allowfullscreen class="relative z-10 shadow-sm"></iframe>
-                    <div class="drive-blocker" title="محمي"></div><div id="watermark" class="watermark-text"></div>
+                    <div class="drive-blocker" title="محمي"></div>
+                    <div id="watermark" class="watermark-text"></div>
                 </div>
             </div>
         </div>
     </div>
-    <footer>
+    <footer id="main-footer" class="hidden">
         <p>جميع الحقوق محفوظة &copy; 2026 | تصميم وتطوير <strong>عبدالله حسام</strong></p>
     </footer>
 
@@ -403,7 +407,8 @@
         setPersistence(auth, browserSessionPersistence).catch(console.error);
 
         let currentUser = null;
-        window.userPhone = ''; window.userName = ''; window.approvedCourses = []; 
+        window.userPhone = ''; window.userName = '';
+        window.approvedCourses = []; 
         window.currentLessonCourse = ''; window.currentAssignmentCourse = '';
         let unsubscribeProfile = null, unsubscribeLessons = null, unsubscribeAssignments = null, unsubscribeCourses = null, unsubscribePayments = null, unsubscribeQuestions = null;
         let compressedImageBase64 = null;
@@ -518,9 +523,13 @@
 
         window.toggleSaveQuestion = async function(questionId, currentSavedState) {
             try {
-                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', questionId), { savedByStudent: !currentSavedState });
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', questionId), {
+                    savedByStudent: !currentSavedState
+                });
                 showNotification(!currentSavedState ? "تم حفظ الرسالة" : "تم إلغاء الحفظ", "success");
-            } catch (error) { showNotification("حدث خطأ", "error"); }
+            } catch (error) {
+                console.error(error); showNotification("حدث خطأ", "error");
+            }
         };
 
         document.getElementById('askForm').addEventListener('submit', async (e) => {
@@ -534,7 +543,8 @@
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'questions'), {
                     userId: currentUser.uid, userName: window.userName || 'طالب غير مسجل', userPhone: window.userPhone || 'بدون رقم',
                     text: text, imageUrl: compressedImageBase64 || null, status: 'pending', replyText: '', 
-                    savedByStudent: false, createdAt: new Date().getTime(),
+                    savedByStudent: false, 
+                    createdAt: new Date().getTime(),
                     dateFormatted: new Date().toLocaleString('ar-EG', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' })
                 });
                 showNotification("تم إرسال سؤالك للمستر بنجاح!", "success");
@@ -546,21 +556,27 @@
             if (!currentUser) return;
             const container = document.getElementById('questions-history-container');
             if (unsubscribeQuestions) unsubscribeQuestions();
+            
             const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
 
             unsubscribeQuestions = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'questions'), (snapshot) => {
-                container.innerHTML = ''; const questionsList = []; const now = new Date().getTime();
+                container.innerHTML = '';
+                const questionsList = [];
+                const now = new Date().getTime();
                 
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     if (data.userId === uid) {
                         const isExpired = (now - data.createdAt) > TWO_DAYS_MS;
-                        if (!isExpired || data.savedByStudent === true) questionsList.push({ id: doc.id, ...data });
+                        if (!isExpired || data.savedByStudent === true) {
+                            questionsList.push({ id: doc.id, ...data });
+                        }
                     }
                 });
                 
                 if (questionsList.length === 0) {
-                    container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center h-full"><div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-chat-teardrop-text text-4xl"></i></div><h4 class="text-lg font-bold text-slate-700 mb-1">لا توجد أسئلة سابقة</h4><p class="text-slate-500 text-sm">أرسل سؤالك وسيتم الرد عليك.</p></div>`; return;
+                    container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center h-full"><div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-chat-teardrop-text text-4xl"></i></div><h4 class="text-lg font-bold text-slate-700 mb-1">لا توجد أسئلة سابقة</h4><p class="text-slate-500 text-sm">أرسل سؤالك وسيتم الرد عليك.</p></div>`;
+                    return;
                 }
 
                 questionsList.sort((a, b) => b.createdAt - a.createdAt);
@@ -573,15 +589,33 @@
                     const isSaved = data.savedByStudent === true;
                     
                     let imageHtml = '';
-                    if (data.imageUrl) imageHtml = `<div class="mt-3 relative w-32 h-32 rounded-xl overflow-hidden border border-slate-200 cursor-pointer group" onclick="viewFullImage('${data.imageUrl}')"><img src="${data.imageUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"><div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="ph-bold ph-magnifying-glass-plus text-white text-xl"></i></div></div>`;
+                    if (data.imageUrl) {
+                        imageHtml = `<div class="mt-3 relative w-32 h-32 rounded-xl overflow-hidden border border-slate-200 cursor-pointer group" onclick="viewFullImage('${data.imageUrl}')"><img src="${data.imageUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"><div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="ph-bold ph-magnifying-glass-plus text-white text-xl"></i></div></div>`;
+                    }
 
                     let replyHtml = '';
-                    if (isAnswered && data.replyText) replyHtml = `<div class="mt-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 relative"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary rounded-r-xl"></div><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="ph-fill ph-chalkboard-teacher"></i></div><span class="text-xs font-black text-slate-800">رد المستر:</span></div></div><p class="text-sm text-slate-700 font-medium leading-relaxed whitespace-pre-wrap mr-8">${data.replyText}</p></div>`;
+                    if (isAnswered && data.replyText) {
+                        replyHtml = `<div class="mt-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 relative"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary rounded-r-xl"></div><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="ph-fill ph-chalkboard-teacher"></i></div><span class="text-xs font-black text-slate-800">رد المستر:</span></div></div><p class="text-sm text-slate-700 font-medium leading-relaxed whitespace-pre-wrap mr-8">${data.replyText}</p></div>`;
+                    }
 
-                    const card = `<div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden mb-4"><div class="flex justify-between items-start mb-3"><span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span><div class="flex items-center gap-2"><button onclick="toggleSaveQuestion('${data.id}', ${isSaved})" class="${isSaved ? 'text-primary bg-indigo-50 border-indigo-200' : 'text-slate-400 bg-slate-50 border-slate-200'} border px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all" title="حفظ الرسالة"><i class="${isSaved ? 'ph-fill' : 'ph-bold'} ph-bookmark-simple"></i> ${isSaved ? 'محفوظة' : 'حفظ'}</button><span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span></div></div><p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>${imageHtml}${replyHtml}</div>`;
+                    const card = `
+                    <div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden mb-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleSaveQuestion('${data.id}', ${isSaved})" class="${isSaved ? 'text-primary bg-indigo-50 border-indigo-200' : 'text-slate-400 bg-slate-50 border-slate-200'} border px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all" title="حفظ الرسالة">
+                                    <i class="${isSaved ? 'ph-fill' : 'ph-bold'} ph-bookmark-simple"></i> ${isSaved ? 'محفوظة' : 'حفظ'}
+                                </button>
+                                <span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span>
+                            </div>
+                        </div>
+                        <p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>
+                        ${imageHtml}
+                        ${replyHtml}
+                    </div>`;
                     container.insertAdjacentHTML('beforeend', card);
                 });
-            });
+            }, (err) => { if(err.code!=='permission-denied') console.error(err); });
         }
 
         function fetchCourses() {
@@ -590,7 +624,7 @@
             unsubscribeCourses = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'courses'), (snapshot) => {
                 document.getElementById('payItem').innerHTML = '<option value="" disabled selected>اختر الكورس...</option>';
                 document.getElementById('courses-container').innerHTML = '';
-                if (snapshot.empty) { document.getElementById('courses-container').innerHTML = '<p class="text-center w-full text-slate-500">لا توجد كورسات متاحة الآن.</p>'; return; }
+                if (snapshot.empty) { document.getElementById('courses-container').innerHTML = '<p class="text-center w-full text-slate-500 col-span-full">لا توجد كورسات متاحة الآن.</p>'; return; }
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     document.getElementById('courses-container').insertAdjacentHTML('beforeend', createCourseCard(data));
@@ -612,7 +646,7 @@
                         let statusColor = "bg-amber-100 text-amber-600"; let icon = "ph-hourglass";
                         if(data.status === 'مفعل') { statusColor = "bg-teal-100 text-teal-600"; icon = "ph-check-circle"; }
                         if(data.status === 'مرفوض') { statusColor = "bg-red-100 text-red-600"; icon = "ph-x-circle"; }
-                        document.getElementById('payments-container').insertAdjacentHTML('beforeend', `<div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-between items-center mb-3"><div><h4 class="font-bold text-slate-800 text-sm mb-1">${data.item}</h4><p class="text-xs font-medium text-slate-500">${data.date} | ${data.amount} جنيه</p></div><div class="${statusColor} px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1"><i class="ph-bold ${icon}"></i> ${data.status}</div></div>`);
+                        document.getElementById('payments-container').insertAdjacentHTML('beforeend', `<div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-between items-center mb-3"><div><h4 class="font-bold text-slate-800 text-sm mb-1">${data.item}</h4></div><div class="${statusColor} px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1"><i class="ph-bold ${icon}"></i> ${data.status}</div></div>`);
                     }
                 });
                 if (!hasPayments) document.getElementById('payments-container').innerHTML = `<div class="flex flex-col items-center justify-center py-6 text-center"><div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-3 text-slate-300"><i class="ph-fill ph-receipt text-3xl"></i></div><p class="text-slate-500 font-medium text-sm">لا توجد طلبات سابقة.</p></div>`;
@@ -622,20 +656,20 @@
 
         document.getElementById('paymentForm').addEventListener('submit', async (e) => {
             e.preventDefault(); if (!currentUser) return;
-            const btn = document.getElementById('btnSubmitPayment'); const ogText = btn.innerHTML; btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin"></i> جاري الإرسال...'; btn.disabled = true;
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'payments'), {
-                    userId: currentUser.uid, userName: window.userName || 'طالب', item: document.getElementById('payItem').value, amount: document.getElementById('payAmount').value, senderPhone: document.getElementById('paySender').value, status: 'قيد المراجعة', date: new Date().toLocaleDateString('ar-EG'), createdAt: new Date().toISOString()
+                    userId: currentUser.uid, item: document.getElementById('payItem').value, amount: document.getElementById('payAmount').value, senderPhone: document.getElementById('paySender').value, status: 'قيد المراجعة', date: new Date().toLocaleDateString('ar-EG'), createdAt: new Date().toISOString()
                 });
-                showNotification("تم إرسال الطلب، جاري المراجعة!", "success"); document.getElementById('paymentForm').reset();
-            } catch(e) { showNotification("حدث خطأ أثناء إرسال الطلب", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
+                showNotification("تم الإرسال!", "success"); document.getElementById('paymentForm').reset();
+            } catch(e) {}
         });
 
         function updateContentAccess() {
             const hasCourses = window.approvedCourses.length > 0;
-            document.getElementById('lessons-locked').classList.toggle('hidden', hasCourses); document.getElementById('lessons-unlocked').classList.toggle('hidden', !hasCourses);
-            document.getElementById('assignments-locked').classList.toggle('hidden', hasCourses); document.getElementById('assignments-unlocked').classList.toggle('hidden', !hasCourses);
-            
+            document.getElementById('lessons-locked').classList.toggle('hidden', hasCourses);
+            document.getElementById('lessons-unlocked').classList.toggle('hidden', !hasCourses);
+            document.getElementById('assignments-locked').classList.toggle('hidden', hasCourses);
+            document.getElementById('assignments-unlocked').classList.toggle('hidden', !hasCourses);
             if (hasCourses) {
                 const opts = window.approvedCourses.map(c => `<option value="${c}">${c}</option>`).join('');
                 document.getElementById('lessons-course-selector').innerHTML = opts; document.getElementById('assignments-course-selector').innerHTML = opts;
@@ -645,13 +679,12 @@
                 fetchLessons(); fetchAssignments();
             }
         }
-
         window.changeActiveCourse = function(type, val) { if (type === 'lessons') { window.currentLessonCourse = val; fetchLessons(); } else { window.currentAssignmentCourse = val; fetchAssignments(); } }
         
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault(); const btn = document.getElementById('loginBtn'); const ogText = btn.innerHTML; btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin"></i>'; btn.disabled = true;
             try { await signInWithEmailAndPassword(auth, phoneToEmail(document.getElementById('loginPhone').value), document.getElementById('loginPassword').value); } 
-            catch(e){ showNotification("بيانات الدخول خاطئة", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
+            catch(e){ showNotification("بيانات خاطئة", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
         });
 
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -665,16 +698,8 @@
         });
 
         window.logoutUser = async function() { clearAllSubscriptions(); await signOut(auth); };
-
-        window.switchTab = function(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.getElementById(tabId).classList.add('active');
-            document.querySelectorAll('.desktop-nav-btn').forEach(btn => { btn.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm'); btn.classList.add('text-slate-500'); });
-            document.querySelectorAll(`.desktop-nav-btn[onclick*="switchTab('${tabId}')"]`).forEach(b => { b.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm'); b.classList.remove('text-slate-500'); });
-            document.querySelectorAll('.mobile-nav-btn').forEach(btn => { btn.classList.remove('active', 'text-primary'); btn.classList.add('text-slate-400'); btn.querySelector('i').classList.remove('-translate-y-1'); });
-            document.querySelectorAll(`.mobile-nav-btn[onclick*="switchTab('${tabId}')"]`).forEach(b => { b.classList.add('active', 'text-primary'); b.classList.remove('text-slate-400'); b.querySelector('i').classList.add('-translate-y-1'); });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
+        window.switchTab = function(tabId) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.getElementById(tabId).classList.add('active'); };
+        
         window.openModal = function(t, url) {
             document.getElementById('modalTitle').innerText = t;
             let embedUrl = url.includes('drive.google.com/file/d/') ? url.replace('/view', '/preview') : url;
@@ -690,35 +715,88 @@
             setTimeout(()=>{m.classList.add('hidden'); document.getElementById('driveFrame').src=''; document.body.style.overflow='';},300); 
         };
 
-        function fetchLessons() {
-            if(!currentUser || window.approvedCourses.length===0) return;
-            const container = document.getElementById('lessons-container');
-            if(unsubscribeLessons) unsubscribeLessons();
-            unsubscribeLessons = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `lessons`), (snap) => {
-                container.innerHTML = ''; let count = 0;
-                snap.forEach(doc => { const d = doc.data(); if(d.course === window.currentLessonCourse) { container.insertAdjacentHTML('beforeend', createLessonCard(d)); count++; } });
-                if(count === 0) container.innerHTML = '<p class="text-slate-500 w-full text-center py-10">لا توجد دروس حالياً في هذا الكورس.</p>';
-            });
+        // ---------------- TIME BASED FILTERING ---------------- //
+
+        function fetchLessons() { 
+            if(!currentUser || window.approvedCourses.length===0) return; 
+            const container = document.getElementById('lessons-container'); 
+            if(unsubscribeLessons) unsubscribeLessons(); 
+            
+            unsubscribeLessons = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `lessons`), (snap) => { 
+                container.innerHTML = ''; 
+                let count = 0; 
+                const now = new Date().getTime();
+                
+                let lessons = [];
+                snap.forEach(doc => { 
+                    const d = doc.data(); 
+                    if(d.course === window.currentLessonCourse) {
+                        // فلترة زمنية: إخفاء الدرس إذا لم يحن موعد نشره
+                        if (!d.publishAt || d.publishAt <= now) {
+                            lessons.push(d);
+                        }
+                    } 
+                }); 
+                
+                lessons.sort((a,b) => {
+                    const timeA = a.publishAt || new Date(a.createdAt).getTime();
+                    const timeB = b.publishAt || new Date(b.createdAt).getTime();
+                    return timeB - timeA;
+                });
+
+                lessons.forEach(d => {
+                    container.insertAdjacentHTML('beforeend', createLessonCard(d)); 
+                    count++; 
+                });
+
+                if(count === 0) container.innerHTML = '<p class="text-slate-500 w-full text-center py-10 col-span-full">لا توجد دروس حالياً أو لم يحن موعد نشرها بعد.</p>'; 
+            }); 
         }
 
-        function fetchAssignments() {
-            if(!currentUser || window.approvedCourses.length===0) return;
-            const container = document.getElementById('assignments-container');
-            if(unsubscribeAssignments) unsubscribeAssignments();
-            unsubscribeAssignments = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `assignments`), (snap) => {
-                container.innerHTML = ''; let count = 0;
-                snap.forEach(doc => { const d = doc.data(); if(d.course === window.currentAssignmentCourse) { container.insertAdjacentHTML('beforeend', createAssignmentCard(d)); count++; } });
-                if(count === 0) container.innerHTML = '<p class="text-slate-500 w-full text-center py-10">لا توجد واجبات حالياً في هذا الكورس.</p>';
-            });
+        function fetchAssignments() { 
+            if(!currentUser || window.approvedCourses.length===0) return; 
+            const container = document.getElementById('assignments-container'); 
+            if(unsubscribeAssignments) unsubscribeAssignments(); 
+            
+            unsubscribeAssignments = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `assignments`), (snap) => { 
+                container.innerHTML = ''; 
+                let count = 0; 
+                const now = new Date().getTime();
+
+                let assigns = [];
+                snap.forEach(doc => { 
+                    const d = doc.data(); 
+                    if(d.course === window.currentAssignmentCourse) {
+                        // فلترة زمنية: إخفاء الواجب إذا لم يحن موعد نشره
+                        if (!d.publishAt || d.publishAt <= now) {
+                            assigns.push(d);
+                        }
+                    } 
+                }); 
+
+                assigns.sort((a,b) => {
+                    const timeA = a.publishAt || new Date(a.createdAt).getTime();
+                    const timeB = b.publishAt || new Date(b.createdAt).getTime();
+                    return timeB - timeA;
+                });
+
+                assigns.forEach(d => {
+                    container.insertAdjacentHTML('beforeend', createAssignmentCard(d)); 
+                    count++; 
+                });
+
+                if(count === 0) container.innerHTML = '<p class="text-slate-500 w-full text-center py-10 col-span-full">لا توجد واجبات حالياً أو لم يحن موعد نشرها بعد.</p>'; 
+            }); 
         }
 
-        function createLessonCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100"><h3 class="font-black text-lg mb-4">${d.title}</h3><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-primary py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors">شاهد الدرس</button></div>`; }
-        function createAssignmentCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100"><h3 class="font-black text-lg mb-4">${d.title}</h3><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-orange-600 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">افتح الواجب</button></div>`; }
+        function createLessonCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><h3 class="font-black text-lg mb-4">${d.title}</h3><p class="text-sm text-slate-500 mb-6 flex-grow">${d.description || ''}</p><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-primary py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors mt-auto">شاهد الدرس</button></div>`; }
+        function createAssignmentCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><h3 class="font-black text-lg mb-4">${d.title}</h3><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-orange-600 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors mt-auto">افتح الواجب</button></div>`; }
         function createCourseCard(d) {
+            const img = d.imageUrl || 'https://images.unsplash.com/photo-1632559648939-f9c34e7bb419?auto=format&fit=crop&w=800&q=80'; 
             const isSubscribed = window.approvedCourses && window.approvedCourses.includes(d.title);
             const btnClass = isSubscribed ? "bg-teal-50 text-teal-600 hover:bg-teal-500 hover:text-white" : "bg-slate-50 text-slate-500 hover:bg-slate-200";
-            const btnText = isSubscribed ? "تصفح الكورس" : "اشترك الآن";
-            const btnAction = isSubscribed ? `openModal('${d.title}','${d.driveUrl}')` : `switchTab('subscriptions')`;
+            const btnText = isSubscribed ? "تم الاشتراك" : "اشترك الآن";
+            const btnAction = isSubscribed ? `switchTab('lessons')` : `switchTab('subscriptions')`;
             return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><h3 class="font-black text-lg mb-2">${d.title}</h3><p class="text-sm text-slate-500 mb-6 flex-grow">${d.description || ''}</p><button onclick="${btnAction}" class="w-full py-2.5 rounded-xl font-bold transition-colors ${btnClass}">${btnText}</button></div>`; 
         }
     </script>
