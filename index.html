@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>منصة مستر عبدالرحمن حسني</title>
+    <title>English Genius</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -51,7 +51,6 @@
         @keyframes floatWatermark { 0% { top: 10%; left: 10%; transform: translate(0, 0); } 25% { top: 80%; left: 80%; transform: translate(-100%, -100%); } 50% { top: 10%; left: 80%; transform: translate(-100%, 0); } 75% { top: 80%; left: 10%; transform: translate(0, -100%); } 100% { top: 10%; left: 10%; transform: translate(0, 0); } }
         .watermark-text { position: absolute; pointer-events: none; z-index: 50; color: rgba(255, 255, 255, 0.35); font-size: 1.2rem; font-weight: 900; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); animation: floatWatermark 20s linear infinite; user-select: none; white-space: nowrap; }
         .drive-blocker { position: absolute; top: 0; right: 0; width: 70px; height: 70px; z-index: 40; background: transparent; cursor: default; }
-        footer { background-color: #2c3e50; color: #ffffff; text-align: center; padding: 20px 0; font-family: 'Tajawal', sans-serif; font-size: 14px; margin-top: 40px; } footer strong { color: #3498db; }
 
         .image-upload-wrapper { position: relative; border: 2px dashed #cbd5e1; border-radius: 1rem; padding: 1.5rem; text-align: center; transition: all 0.3s ease; background-color: #f8fafc; cursor: pointer; overflow: hidden; }
         .image-upload-wrapper:hover { border-color: #4f46e5; background-color: #eef2ff; }
@@ -70,7 +69,7 @@
         <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-primary to-indigo-400 flex items-center justify-center shadow-glow mb-6 animate-bounce">
             <i class="ph-bold ph-translate text-5xl text-white"></i>
         </div>
-        <h1 class="text-3xl font-black text-slate-900 tracking-tight mb-3">English genius</h1>
+        <h1 class="text-3xl font-black text-slate-900 tracking-tight mb-3">English Genius</h1>
         <p class="text-slate-500 font-medium flex items-center gap-2">
             <i class="ph-bold ph-spinner-gap animate-spin text-xl"></i> جاري الاتصال بالخادم...
         </p>
@@ -81,7 +80,7 @@
         <i id="notif-icon" class="text-2xl"></i> <span id="notif-msg"></span>
     </div>
 
-    <!-- Modal لعرض الصور الكبيرة -->
+    <!-- Image Modal -->
     <div id="imageModal" class="fixed inset-0 z-[300] hidden bg-slate-900/95 backdrop-blur-sm flex justify-center items-center p-4 opacity-0 transition-opacity duration-300">
         <div class="relative max-w-4xl w-full flex flex-col items-center">
             <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white hover:text-red-400 bg-white/10 p-2 rounded-full backdrop-blur transition-colors"><i class="ph-bold ph-x text-2xl"></i></button>
@@ -96,13 +95,13 @@
             <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2"></div>
             <div class="relative z-10 flex flex-col items-center text-center max-w-md">
                 <div class="w-64 h-64 rounded-[2.5rem] bg-indigo-50 border-4 border-white shadow-2xl mb-8 flex items-center justify-center overflow-hidden relative">
-                    <img src="img1" alt="صورة الأستاذ" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?auto=format&fit=crop&w=800&q=80" alt="صورة الأستاذ" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/40 to-transparent"></div>
                     <div class="absolute bottom-4 left-0 w-full text-center">
                         <span class="bg-white/90 backdrop-blur text-primary font-black px-4 py-1.5 rounded-full text-sm shadow-sm">مـــســـتـــر عـــبـــد الـــــرحـــمــــن حـــسـنــي</span>
                     </div>
                 </div>
-                <h1 class="text-4xl font-black text-slate-900 mb-4 leading-tight">English genius</h1>
+                <h1 class="text-4xl font-black text-slate-900 mb-4 leading-tight">English Genius</h1>
                 <p class="text-slate-500 font-medium leading-relaxed text-lg">هدفنا تعليم اللغة وليــــس المـــنــهـــج</p>
             </div>
         </div>
@@ -113,7 +112,7 @@
                     <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-primary to-indigo-400 flex items-center justify-center shadow-glow mb-4">
                         <i class="ph-bold ph-translate text-4xl text-white"></i>
                     </div>
-                    <h2 class="text-2xl font-black text-slate-900">English genius</h2>
+                    <h2 class="text-2xl font-black text-slate-900">English Genius</h2>
                 </div>
 
                 <div class="bg-white rounded-3xl sm:shadow-soft sm:border sm:border-slate-100 p-2 sm:p-8">
@@ -167,6 +166,7 @@
 
     <!-- MAIN APP SECTION -->
     <div id="app-section" class="hidden flex-col min-h-screen w-full relative pb-20 md:pb-0">
+        
         <header class="glass-header fixed top-0 inset-x-0 z-40 transition-all duration-300">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
@@ -174,7 +174,7 @@
                         <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-primary to-indigo-400 flex items-center justify-center shadow-glow">
                             <i class="ph-bold ph-translate text-2xl text-white"></i>
                         </div>
-                        <div><h1 class="font-black text-xl tracking-tight text-slate-900 leading-none">English genius</h1><p class="text-xs font-bold text-primary mt-1">مـــســـتـــر عـــبـــد الـــــرحـــمــــن</p></div>
+                        <div><h1 class="font-black text-xl tracking-tight text-slate-900 leading-none">English Genius</h1><p class="text-xs font-bold text-primary mt-1">مـــســـتـــر عـــبـــد الـــــرحـــمــــن</p></div>
                     </div>
                     
                     <nav class="hidden lg:flex items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/50">
@@ -389,9 +389,6 @@
             </div>
         </div>
     </div>
-    <footer id="main-footer" class="hidden">
-        <p>جميع الحقوق محفوظة &copy; 2026 | تصميم وتطوير <strong>عبدالله حسام</strong></p>
-    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -410,7 +407,12 @@
         window.userPhone = ''; window.userName = '';
         window.approvedCourses = []; 
         window.currentLessonCourse = ''; window.currentAssignmentCourse = '';
-        let unsubscribeProfile = null, unsubscribeLessons = null, unsubscribeAssignments = null, unsubscribeCourses = null, unsubscribePayments = null, unsubscribeQuestions = null;
+        
+        // --- View Counter System ---
+        window.watchedLessonsCounts = {}; // { lessonId: viewsCount }
+        const MAX_VIEWS = 4;
+
+        let unsubscribeProfile = null, unsubscribeLessons = null, unsubscribeAssignments = null, unsubscribeCourses = null, unsubscribePayments = null, unsubscribeQuestions = null, unsubscribeWatched = null;
         let compressedImageBase64 = null;
 
         const phoneToEmail = (phone) => `${phone}@student.eng.com`;
@@ -430,7 +432,9 @@
             if(unsubscribeCourses) { unsubscribeCourses(); unsubscribeCourses = null; }
             if(unsubscribePayments) { unsubscribePayments(); unsubscribePayments = null; }
             if(unsubscribeQuestions) { unsubscribeQuestions(); unsubscribeQuestions = null; }
+            if(unsubscribeWatched) { unsubscribeWatched(); unsubscribeWatched = null; }
             window.approvedCourses = [];
+            window.watchedLessonsCounts = {};
         }
 
         window.toggleAuth = function(type) {
@@ -448,7 +452,7 @@
 
             if (user) {
                 authSec.classList.add('hidden'); appSec.classList.remove('hidden'); appSec.classList.add('flex');
-                fetchUserData(user.uid); fetchCourses(); fetchPayments(user.uid); fetchQuestions(user.uid);
+                fetchUserData(user.uid); fetchCourses(); fetchPayments(user.uid); fetchQuestions(user.uid); fetchWatchedLessons(user.uid);
             } else {
                 clearAllSubscriptions(); 
                 authSec.classList.remove('hidden'); authSec.classList.add('flex');
@@ -474,6 +478,18 @@
             });
         }
 
+        function fetchWatchedLessons(uid) {
+            if (unsubscribeWatched) unsubscribeWatched();
+            unsubscribeWatched = onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'watched_lessons'), (snapshot) => {
+                window.watchedLessonsCounts = {};
+                snapshot.forEach(doc => {
+                    window.watchedLessonsCounts[doc.id] = doc.data().views || 0;
+                });
+                if (window.currentLessonCourse) fetchLessons(); // Re-render lessons to show updated counts
+            });
+        }
+
+        // Image Handling
         const imageInput = document.getElementById('questionImage');
         const imagePreview = document.getElementById('imagePreview');
         const uploadPlaceholder = document.getElementById('uploadPlaceholder');
@@ -513,23 +529,17 @@
 
         window.viewFullImage = function(src) {
             document.getElementById('fullSizeImage').src = src;
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('hidden'); setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.getElementById('imageModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('imageModal').classList.add('opacity-100'); }, 10);
         }
         window.closeImageModal = function() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('opacity-100'); setTimeout(() => { modal.classList.add('hidden'); document.getElementById('fullSizeImage').src = ''; }, 300);
+            document.getElementById('imageModal').classList.remove('opacity-100'); setTimeout(() => { document.getElementById('imageModal').classList.add('hidden'); document.getElementById('fullSizeImage').src = ''; }, 300);
         }
 
         window.toggleSaveQuestion = async function(questionId, currentSavedState) {
             try {
-                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', questionId), {
-                    savedByStudent: !currentSavedState
-                });
+                await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', questionId), { savedByStudent: !currentSavedState });
                 showNotification(!currentSavedState ? "تم حفظ الرسالة" : "تم إلغاء الحفظ", "success");
-            } catch (error) {
-                console.error(error); showNotification("حدث خطأ", "error");
-            }
+            } catch (error) { showNotification("حدث خطأ", "error"); }
         };
 
         document.getElementById('askForm').addEventListener('submit', async (e) => {
@@ -543,8 +553,7 @@
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'questions'), {
                     userId: currentUser.uid, userName: window.userName || 'طالب غير مسجل', userPhone: window.userPhone || 'بدون رقم',
                     text: text, imageUrl: compressedImageBase64 || null, status: 'pending', replyText: '', 
-                    savedByStudent: false, 
-                    createdAt: new Date().getTime(),
+                    savedByStudent: false, createdAt: new Date().getTime(),
                     dateFormatted: new Date().toLocaleString('ar-EG', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' })
                 });
                 showNotification("تم إرسال سؤالك للمستر بنجاح!", "success");
@@ -556,27 +565,21 @@
             if (!currentUser) return;
             const container = document.getElementById('questions-history-container');
             if (unsubscribeQuestions) unsubscribeQuestions();
-            
             const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
 
             unsubscribeQuestions = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'questions'), (snapshot) => {
-                container.innerHTML = '';
-                const questionsList = [];
-                const now = new Date().getTime();
+                container.innerHTML = ''; const questionsList = []; const now = new Date().getTime();
                 
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     if (data.userId === uid) {
                         const isExpired = (now - data.createdAt) > TWO_DAYS_MS;
-                        if (!isExpired || data.savedByStudent === true) {
-                            questionsList.push({ id: doc.id, ...data });
-                        }
+                        if (!isExpired || data.savedByStudent === true) questionsList.push({ id: doc.id, ...data });
                     }
                 });
                 
                 if (questionsList.length === 0) {
-                    container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center h-full"><div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-chat-teardrop-text text-4xl"></i></div><h4 class="text-lg font-bold text-slate-700 mb-1">لا توجد أسئلة سابقة</h4><p class="text-slate-500 text-sm">أرسل سؤالك وسيتم الرد عليك.</p></div>`;
-                    return;
+                    container.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-center h-full"><div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-chat-teardrop-text text-4xl"></i></div><h4 class="text-lg font-bold text-slate-700 mb-1">لا توجد أسئلة سابقة</h4><p class="text-slate-500 text-sm">أرسل سؤالك وسيتم الرد عليك.</p></div>`; return;
                 }
 
                 questionsList.sort((a, b) => b.createdAt - a.createdAt);
@@ -589,30 +592,12 @@
                     const isSaved = data.savedByStudent === true;
                     
                     let imageHtml = '';
-                    if (data.imageUrl) {
-                        imageHtml = `<div class="mt-3 relative w-32 h-32 rounded-xl overflow-hidden border border-slate-200 cursor-pointer group" onclick="viewFullImage('${data.imageUrl}')"><img src="${data.imageUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"><div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="ph-bold ph-magnifying-glass-plus text-white text-xl"></i></div></div>`;
-                    }
+                    if (data.imageUrl) imageHtml = `<div class="mt-3 relative w-32 h-32 rounded-xl overflow-hidden border border-slate-200 cursor-pointer group" onclick="viewFullImage('${data.imageUrl}')"><img src="${data.imageUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"><div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="ph-bold ph-magnifying-glass-plus text-white text-xl"></i></div></div>`;
 
                     let replyHtml = '';
-                    if (isAnswered && data.replyText) {
-                        replyHtml = `<div class="mt-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 relative"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary rounded-r-xl"></div><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="ph-fill ph-chalkboard-teacher"></i></div><span class="text-xs font-black text-slate-800">رد المستر:</span></div></div><p class="text-sm text-slate-700 font-medium leading-relaxed whitespace-pre-wrap mr-8">${data.replyText}</p></div>`;
-                    }
+                    if (isAnswered && data.replyText) replyHtml = `<div class="mt-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 relative"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary rounded-r-xl"></div><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="ph-fill ph-chalkboard-teacher"></i></div><span class="text-xs font-black text-slate-800">رد المستر:</span></div></div><p class="text-sm text-slate-700 font-medium leading-relaxed whitespace-pre-wrap mr-8">${data.replyText}</p></div>`;
 
-                    const card = `
-                    <div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden mb-4">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span>
-                            <div class="flex items-center gap-2">
-                                <button onclick="toggleSaveQuestion('${data.id}', ${isSaved})" class="${isSaved ? 'text-primary bg-indigo-50 border-indigo-200' : 'text-slate-400 bg-slate-50 border-slate-200'} border px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all" title="حفظ الرسالة">
-                                    <i class="${isSaved ? 'ph-fill' : 'ph-bold'} ph-bookmark-simple"></i> ${isSaved ? 'محفوظة' : 'حفظ'}
-                                </button>
-                                <span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span>
-                            </div>
-                        </div>
-                        <p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>
-                        ${imageHtml}
-                        ${replyHtml}
-                    </div>`;
+                    const card = `<div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden mb-4"><div class="flex justify-between items-start mb-3"><span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span><div class="flex items-center gap-2"><button onclick="toggleSaveQuestion('${data.id}', ${isSaved})" class="${isSaved ? 'text-primary bg-indigo-50 border-indigo-200' : 'text-slate-400 bg-slate-50 border-slate-200'} border px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all" title="حفظ الرسالة"><i class="${isSaved ? 'ph-fill' : 'ph-bold'} ph-bookmark-simple"></i> ${isSaved ? 'محفوظة' : 'حفظ'}</button><span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span></div></div><p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>${imageHtml}${replyHtml}</div>`;
                     container.insertAdjacentHTML('beforeend', card);
                 });
             }, (err) => { if(err.code!=='permission-denied') console.error(err); });
@@ -646,7 +631,7 @@
                         let statusColor = "bg-amber-100 text-amber-600"; let icon = "ph-hourglass";
                         if(data.status === 'مفعل') { statusColor = "bg-teal-100 text-teal-600"; icon = "ph-check-circle"; }
                         if(data.status === 'مرفوض') { statusColor = "bg-red-100 text-red-600"; icon = "ph-x-circle"; }
-                        document.getElementById('payments-container').insertAdjacentHTML('beforeend', `<div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-between items-center mb-3"><div><h4 class="font-bold text-slate-800 text-sm mb-1">${data.item}</h4></div><div class="${statusColor} px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1"><i class="ph-bold ${icon}"></i> ${data.status}</div></div>`);
+                        document.getElementById('payments-container').insertAdjacentHTML('beforeend', `<div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-between items-center mb-3"><div><h4 class="font-bold text-slate-800 text-sm mb-1">${data.item}</h4><p class="text-xs font-medium text-slate-500">${data.date} | ${data.amount} جنيه</p></div><div class="${statusColor} px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1"><i class="ph-bold ${icon}"></i> ${data.status}</div></div>`);
                     }
                 });
                 if (!hasPayments) document.getElementById('payments-container').innerHTML = `<div class="flex flex-col items-center justify-center py-6 text-center"><div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-3 text-slate-300"><i class="ph-fill ph-receipt text-3xl"></i></div><p class="text-slate-500 font-medium text-sm">لا توجد طلبات سابقة.</p></div>`;
@@ -656,20 +641,19 @@
 
         document.getElementById('paymentForm').addEventListener('submit', async (e) => {
             e.preventDefault(); if (!currentUser) return;
+            const btn = document.getElementById('btnSubmitPayment'); const ogText = btn.innerHTML; btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin"></i> جاري الإرسال...'; btn.disabled = true;
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'payments'), {
-                    userId: currentUser.uid, item: document.getElementById('payItem').value, amount: document.getElementById('payAmount').value, senderPhone: document.getElementById('paySender').value, status: 'قيد المراجعة', date: new Date().toLocaleDateString('ar-EG'), createdAt: new Date().toISOString()
+                    userId: currentUser.uid, userName: window.userName || 'طالب', item: document.getElementById('payItem').value, amount: document.getElementById('payAmount').value, senderPhone: document.getElementById('paySender').value, status: 'قيد المراجعة', date: new Date().toLocaleDateString('ar-EG'), createdAt: new Date().toISOString()
                 });
-                showNotification("تم الإرسال!", "success"); document.getElementById('paymentForm').reset();
-            } catch(e) {}
+                showNotification("تم إرسال الطلب، جاري المراجعة!", "success"); document.getElementById('paymentForm').reset();
+            } catch(e) { showNotification("حدث خطأ", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
         });
 
         function updateContentAccess() {
             const hasCourses = window.approvedCourses.length > 0;
-            document.getElementById('lessons-locked').classList.toggle('hidden', hasCourses);
-            document.getElementById('lessons-unlocked').classList.toggle('hidden', !hasCourses);
-            document.getElementById('assignments-locked').classList.toggle('hidden', hasCourses);
-            document.getElementById('assignments-unlocked').classList.toggle('hidden', !hasCourses);
+            document.getElementById('lessons-locked').classList.toggle('hidden', hasCourses); document.getElementById('lessons-unlocked').classList.toggle('hidden', !hasCourses);
+            document.getElementById('assignments-locked').classList.toggle('hidden', hasCourses); document.getElementById('assignments-unlocked').classList.toggle('hidden', !hasCourses);
             if (hasCourses) {
                 const opts = window.approvedCourses.map(c => `<option value="${c}">${c}</option>`).join('');
                 document.getElementById('lessons-course-selector').innerHTML = opts; document.getElementById('assignments-course-selector').innerHTML = opts;
@@ -697,25 +681,53 @@
             finally { btn.innerHTML = ogText; btn.disabled = false; }
         });
 
-        window.logoutUser = async function() { clearAllSubscriptions(); await signOut(auth); };
-        window.switchTab = function(tabId) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.getElementById(tabId).classList.add('active'); };
-        
-        window.openModal = function(t, url) {
-            document.getElementById('modalTitle').innerText = t;
+        window.logoutUser = async function() { clearAllSubscriptions(); await signOut(auth); document.getElementById('loginForm').reset(); document.getElementById('registerForm').reset(); };
+        window.switchTab = function(tabId) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.getElementById(tabId).classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+
+        window.openLessonModalWithCount = async function(lessonId, title, url) {
+            if (!currentUser) return;
+            const currentViews = window.watchedLessonsCounts[lessonId] || 0;
+            
+            if (currentViews >= MAX_VIEWS) {
+                showNotification(`عفواً، لقد استنفدت الحد الأقصى للمشاهدات (${MAX_VIEWS} مرات) لهذا الدرس.`, "error");
+                return;
+            }
+
+            try {
+                // Record the view
+                await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'watched_lessons', lessonId), {
+                    lessonTitle: title,
+                    views: currentViews + 1,
+                    watchedAt: new Date().toISOString()
+                }, { merge: true });
+
+                // Open the modal
+                document.getElementById('modalTitle').innerText = title;
+                let embedUrl = url.includes('drive.google.com/file/d/') ? url.replace('/view', '/preview') : url;
+                document.getElementById('watermark').innerText = (window.userPhone ? window.userPhone + ' - ' : '') + (window.userName || '');
+                const m = document.getElementById('driveModal'); const c = document.getElementById('modalContent');
+                m.classList.remove('hidden'); setTimeout(()=>{m.classList.add('opacity-100'); c.classList.remove('scale-95'); c.classList.add('scale-100');},10);
+                document.getElementById('driveFrame').src=embedUrl; document.body.style.overflow='hidden';
+            } catch(e) {
+                console.error(e);
+                showNotification("حدث خطأ أثناء تحميل الدرس", "error");
+            }
+        };
+
+        window.openAssignmentModal = function(title, url) {
+            document.getElementById('modalTitle').innerText = title;
             let embedUrl = url.includes('drive.google.com/file/d/') ? url.replace('/view', '/preview') : url;
             document.getElementById('watermark').innerText = (window.userPhone ? window.userPhone + ' - ' : '') + (window.userName || '');
             const m = document.getElementById('driveModal'); const c = document.getElementById('modalContent');
             m.classList.remove('hidden'); setTimeout(()=>{m.classList.add('opacity-100'); c.classList.remove('scale-95'); c.classList.add('scale-100');},10);
-            document.getElementById('driveFrame').src=embedUrl; document.body.style.overflow='hidden'; 
-        };
+            document.getElementById('driveFrame').src=embedUrl; document.body.style.overflow='hidden';
+        }
 
         window.closeModal = function() {
             const m = document.getElementById('driveModal'); const c = document.getElementById('modalContent');
             m.classList.remove('opacity-100'); c.classList.remove('scale-100'); c.classList.add('scale-95');
             setTimeout(()=>{m.classList.add('hidden'); document.getElementById('driveFrame').src=''; document.body.style.overflow='';},300); 
         };
-
-        // ---------------- TIME BASED FILTERING ---------------- //
 
         function fetchLessons() { 
             if(!currentUser || window.approvedCourses.length===0) return; 
@@ -731,9 +743,8 @@
                 snap.forEach(doc => { 
                     const d = doc.data(); 
                     if(d.course === window.currentLessonCourse) {
-                        // فلترة زمنية: إخفاء الدرس إذا لم يحن موعد نشره
                         if (!d.publishAt || d.publishAt <= now) {
-                            lessons.push(d);
+                            lessons.push({ id: doc.id, ...d });
                         }
                     } 
                 }); 
@@ -767,7 +778,6 @@
                 snap.forEach(doc => { 
                     const d = doc.data(); 
                     if(d.course === window.currentAssignmentCourse) {
-                        // فلترة زمنية: إخفاء الواجب إذا لم يحن موعد نشره
                         if (!d.publishAt || d.publishAt <= now) {
                             assigns.push(d);
                         }
@@ -789,8 +799,37 @@
             }); 
         }
 
-        function createLessonCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><h3 class="font-black text-lg mb-4">${d.title}</h3><p class="text-sm text-slate-500 mb-6 flex-grow">${d.description || ''}</p><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-primary py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors mt-auto">شاهد الدرس</button></div>`; }
-        function createAssignmentCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><h3 class="font-black text-lg mb-4">${d.title}</h3><button onclick="openModal('${d.title}','${d.driveUrl}')" class="w-full bg-slate-50 text-orange-600 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors mt-auto">افتح الواجب</button></div>`; }
+        function createLessonCard(d) { 
+            const views = window.watchedLessonsCounts[d.id] || 0;
+            const isLocked = views >= MAX_VIEWS;
+            
+            let btnHTML = '';
+            let lockBadge = '';
+
+            if (isLocked) {
+                btnHTML = `<button disabled class="w-full bg-slate-100 text-slate-400 py-2.5 rounded-xl font-bold cursor-not-allowed mt-auto flex items-center justify-center gap-2"><i class="ph-bold ph-lock-key"></i> مغلق (تم تجاوز الحد)</button>`;
+                lockBadge = `<span class="absolute top-4 left-4 bg-red-100 text-red-600 text-[10px] font-black px-2 py-1 rounded-md flex items-center gap-1"><i class="ph-bold ph-lock-key"></i> مغلق</span>`;
+            } else {
+                btnHTML = `<button onclick="openLessonModalWithCount('${d.id}', '${d.title}', '${d.driveUrl}')" class="w-full bg-primary/10 text-primary hover:bg-primary hover:text-white py-2.5 rounded-xl font-bold transition-colors mt-auto flex items-center justify-center gap-2"><span>شاهد الدرس</span> <i class="ph-bold ph-play-circle"></i></button>`;
+            }
+
+            return `
+            <div class="bg-white rounded-2xl p-6 shadow-sm border ${isLocked ? 'border-red-100 opacity-80' : 'border-slate-100'} flex flex-col h-full relative transition-all hover:shadow-md">
+                ${lockBadge}
+                <div class="w-12 h-12 ${isLocked ? 'bg-slate-100 text-slate-400' : 'bg-indigo-50 text-primary'} rounded-xl flex items-center justify-center mb-4"><i class="ph-fill ph-monitor-play text-2xl"></i></div>
+                <h3 class="font-black text-lg mb-2 text-slate-800">${d.title}</h3>
+                <p class="text-sm text-slate-500 mb-4 flex-grow line-clamp-2">${d.description || 'لا يوجد وصف متاح.'}</p>
+                
+                <div class="bg-slate-50 rounded-lg p-2.5 mb-4 flex items-center justify-between border border-slate-100">
+                    <span class="text-xs font-bold text-slate-500"><i class="ph-bold ph-eye"></i> عدد المشاهدات</span>
+                    <span class="text-xs font-black ${isLocked ? 'text-red-500' : 'text-primary'}">${views} من ${MAX_VIEWS}</span>
+                </div>
+                
+                ${btnHTML}
+            </div>`; 
+        }
+
+        function createAssignmentCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center mb-4"><i class="ph-fill ph-file-pdf text-2xl"></i></div><h3 class="font-black text-lg mb-4 text-slate-800">${d.title}</h3><button onclick="openAssignmentModal('${d.title}','${d.driveUrl}')" class="w-full bg-orange-50 text-orange-600 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors mt-auto flex items-center justify-center gap-2"><span>افتح الواجب</span> <i class="ph-bold ph-arrow-up-right"></i></button></div>`; }
         function createCourseCard(d) {
             const img = d.imageUrl || 'https://images.unsplash.com/photo-1632559648939-f9c34e7bb419?auto=format&fit=crop&w=800&q=80'; 
             const isSubscribed = window.approvedCourses && window.approvedCourses.includes(d.title);
