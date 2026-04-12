@@ -60,6 +60,8 @@
         
         .question-card { transition: all 0.3s ease; border: 1px solid #e2e8f0; }
         .question-card:hover { border-color: #4f46e5; box-shadow: 0 4px 20px -5px rgba(79, 70, 229, 0.15); }
+        
+        .custom-scroll::-webkit-scrollbar { width: 6px; } .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px;} .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
     </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col relative overflow-x-hidden">
@@ -76,7 +78,7 @@
     </div>
 
     <!-- Notification -->
-    <div id="notification" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-[200] notification-hide flex items-center gap-3 px-6 py-3 rounded-2xl shadow-xl font-bold text-sm max-w-sm w-full text-center justify-center">
+    <div id="notification" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-[200] notification-hide flex items-center gap-3 px-6 py-3 rounded-2xl shadow-xl font-bold text-sm max-w-sm w-full text-center justify-center text-white">
         <i id="notif-icon" class="text-2xl"></i> <span id="notif-msg"></span>
     </div>
 
@@ -84,7 +86,35 @@
     <div id="imageModal" class="fixed inset-0 z-[300] hidden bg-slate-900/95 backdrop-blur-sm flex justify-center items-center p-4 opacity-0 transition-opacity duration-300">
         <div class="relative max-w-4xl w-full flex flex-col items-center">
             <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white hover:text-red-400 bg-white/10 p-2 rounded-full backdrop-blur transition-colors"><i class="ph-bold ph-x text-2xl"></i></button>
-            <img id="fullSizeImage" src="" class="max-h-[85vh] w-auto rounded-xl shadow-2xl object-contain border border-white/10" alt="صورة السؤال">
+            <img id="fullSizeImage" src="" class="max-h-[85vh] w-auto rounded-xl shadow-2xl object-contain border border-white/10" alt="صورة مكبرة">
+        </div>
+    </div>
+
+    <!-- Course Details Modal -->
+    <div id="courseModal" class="fixed inset-0 z-[400] hidden bg-slate-900/80 backdrop-blur-sm flex justify-center items-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl flex flex-col transform scale-95 transition-transform duration-300 relative max-h-[90vh]" id="courseModalContent">
+            <button onclick="closeCourseModal()" class="absolute top-4 right-4 z-10 bg-white/50 hover:bg-white text-slate-800 p-2 rounded-full backdrop-blur transition-colors shadow-sm"><i class="ph-bold ph-x text-lg"></i></button>
+            
+            <div class="h-64 sm:h-80 w-full relative shrink-0">
+                <img id="courseModalImg" src="" class="w-full h-full object-cover" alt="غلاف الكورس">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
+                <div class="absolute bottom-6 right-6 left-6 text-white">
+                    <span id="courseModalBadge" class="hidden bg-primary text-white text-xs font-bold px-3 py-1 rounded-lg mb-3"></span>
+                    <h2 id="courseModalTitle" class="text-3xl font-black leading-tight"></h2>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-8 overflow-y-auto custom-scroll">
+                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2"><i class="ph-fill ph-info text-primary"></i> تفاصيل الكورس</h3>
+                <p id="courseModalDesc" class="text-slate-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap"></p>
+            </div>
+            
+            <div class="p-4 border-t border-slate-100 bg-slate-50 shrink-0">
+                <button onclick="closeCourseModal(); switchTab('subscriptions')" class="w-full bg-primary hover:bg-primaryHover text-white font-bold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                    <span>الذهاب للاشتراك</span>
+                    <i class="ph-bold ph-wallet"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -407,6 +437,7 @@
         window.userPhone = ''; window.userName = '';
         window.approvedCourses = []; 
         window.currentLessonCourse = ''; window.currentAssignmentCourse = '';
+        window.allCoursesList = {}; 
         
         // --- View Counter System ---
         window.watchedLessonsCounts = {}; // { lessonId: viewsCount }
@@ -435,6 +466,7 @@
             if(unsubscribeWatched) { unsubscribeWatched(); unsubscribeWatched = null; }
             window.approvedCourses = [];
             window.watchedLessonsCounts = {};
+            window.allCoursesList = {};
         }
 
         window.toggleAuth = function(type) {
@@ -485,7 +517,7 @@
                 snapshot.forEach(doc => {
                     window.watchedLessonsCounts[doc.id] = doc.data().views || 0;
                 });
-                if (window.currentLessonCourse) fetchLessons(); // Re-render lessons to show updated counts
+                if (window.currentLessonCourse) fetchLessons(); 
             });
         }
 
@@ -609,10 +641,13 @@
             unsubscribeCourses = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'courses'), (snapshot) => {
                 document.getElementById('payItem').innerHTML = '<option value="" disabled selected>اختر الكورس...</option>';
                 document.getElementById('courses-container').innerHTML = '';
+                window.allCoursesList = {};
+                
                 if (snapshot.empty) { document.getElementById('courses-container').innerHTML = '<p class="text-center w-full text-slate-500 col-span-full">لا توجد كورسات متاحة الآن.</p>'; return; }
                 snapshot.forEach(doc => {
                     const data = doc.data();
-                    document.getElementById('courses-container').insertAdjacentHTML('beforeend', createCourseCard(data));
+                    window.allCoursesList[doc.id] = data;
+                    document.getElementById('courses-container').insertAdjacentHTML('beforeend', createCourseCard(doc.id, data));
                     document.getElementById('payItem').insertAdjacentHTML('beforeend', `<option value="${data.title}">${data.title}</option>`);
                 });
             });
@@ -684,6 +719,29 @@
         window.logoutUser = async function() { clearAllSubscriptions(); await signOut(auth); document.getElementById('loginForm').reset(); document.getElementById('registerForm').reset(); };
         window.switchTab = function(tabId) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.getElementById(tabId).classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
+        window.openCourseModal = function(id) {
+            const d = window.allCoursesList[id];
+            if(!d) return;
+            document.getElementById('courseModalTitle').innerText = d.title;
+            document.getElementById('courseModalImg').src = d.imageUrl || 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80';
+            document.getElementById('courseModalDesc').innerText = d.description || 'لا يوجد وصف متاح.';
+            const badgeEl = document.getElementById('courseModalBadge');
+            if (d.badge) { badgeEl.innerText = d.badge; badgeEl.classList.remove('hidden'); badgeEl.classList.add('inline-block'); } 
+            else { badgeEl.classList.add('hidden'); badgeEl.classList.remove('inline-block'); }
+
+            const modal = document.getElementById('courseModal');
+            const content = document.getElementById('courseModalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); content.classList.remove('scale-95'); content.classList.add('scale-100'); }, 10);
+        };
+
+        window.closeCourseModal = function() {
+            const modal = document.getElementById('courseModal');
+            const content = document.getElementById('courseModalContent');
+            modal.classList.remove('opacity-100'); content.classList.remove('scale-100'); content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        };
+
         window.openLessonModalWithCount = async function(lessonId, title, url) {
             if (!currentUser) return;
             const currentViews = window.watchedLessonsCounts[lessonId] || 0;
@@ -694,24 +752,17 @@
             }
 
             try {
-                // Record the view
                 await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'watched_lessons', lessonId), {
-                    lessonTitle: title,
-                    views: currentViews + 1,
-                    watchedAt: new Date().toISOString()
+                    lessonTitle: title, views: currentViews + 1, watchedAt: new Date().toISOString()
                 }, { merge: true });
 
-                // Open the modal
                 document.getElementById('modalTitle').innerText = title;
                 let embedUrl = url.includes('drive.google.com/file/d/') ? url.replace('/view', '/preview') : url;
                 document.getElementById('watermark').innerText = (window.userPhone ? window.userPhone + ' - ' : '') + (window.userName || '');
                 const m = document.getElementById('driveModal'); const c = document.getElementById('modalContent');
                 m.classList.remove('hidden'); setTimeout(()=>{m.classList.add('opacity-100'); c.classList.remove('scale-95'); c.classList.add('scale-100');},10);
                 document.getElementById('driveFrame').src=embedUrl; document.body.style.overflow='hidden';
-            } catch(e) {
-                console.error(e);
-                showNotification("حدث خطأ أثناء تحميل الدرس", "error");
-            }
+            } catch(e) { console.error(e); showNotification("حدث خطأ", "error"); }
         };
 
         window.openAssignmentModal = function(title, url) {
@@ -735,31 +786,16 @@
             if(unsubscribeLessons) unsubscribeLessons(); 
             
             unsubscribeLessons = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `lessons`), (snap) => { 
-                container.innerHTML = ''; 
-                let count = 0; 
-                const now = new Date().getTime();
-                
+                container.innerHTML = ''; let count = 0; const now = new Date().getTime();
                 let lessons = [];
                 snap.forEach(doc => { 
                     const d = doc.data(); 
                     if(d.course === window.currentLessonCourse) {
-                        if (!d.publishAt || d.publishAt <= now) {
-                            lessons.push({ id: doc.id, ...d });
-                        }
+                        if (!d.publishAt || d.publishAt <= now) { lessons.push({ id: doc.id, ...d }); }
                     } 
                 }); 
-                
-                lessons.sort((a,b) => {
-                    const timeA = a.publishAt || new Date(a.createdAt).getTime();
-                    const timeB = b.publishAt || new Date(b.createdAt).getTime();
-                    return timeB - timeA;
-                });
-
-                lessons.forEach(d => {
-                    container.insertAdjacentHTML('beforeend', createLessonCard(d)); 
-                    count++; 
-                });
-
+                lessons.sort((a,b) => { const timeA = a.publishAt || new Date(a.createdAt).getTime(); const timeB = b.publishAt || new Date(b.createdAt).getTime(); return timeB - timeA; });
+                lessons.forEach(d => { container.insertAdjacentHTML('beforeend', createLessonCard(d)); count++; });
                 if(count === 0) container.innerHTML = '<p class="text-slate-500 w-full text-center py-10 col-span-full">لا توجد دروس حالياً أو لم يحن موعد نشرها بعد.</p>'; 
             }); 
         }
@@ -770,31 +806,16 @@
             if(unsubscribeAssignments) unsubscribeAssignments(); 
             
             unsubscribeAssignments = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', `assignments`), (snap) => { 
-                container.innerHTML = ''; 
-                let count = 0; 
-                const now = new Date().getTime();
-
+                container.innerHTML = ''; let count = 0; const now = new Date().getTime();
                 let assigns = [];
                 snap.forEach(doc => { 
                     const d = doc.data(); 
                     if(d.course === window.currentAssignmentCourse) {
-                        if (!d.publishAt || d.publishAt <= now) {
-                            assigns.push(d);
-                        }
+                        if (!d.publishAt || d.publishAt <= now) { assigns.push(d); }
                     } 
                 }); 
-
-                assigns.sort((a,b) => {
-                    const timeA = a.publishAt || new Date(a.createdAt).getTime();
-                    const timeB = b.publishAt || new Date(b.createdAt).getTime();
-                    return timeB - timeA;
-                });
-
-                assigns.forEach(d => {
-                    container.insertAdjacentHTML('beforeend', createAssignmentCard(d)); 
-                    count++; 
-                });
-
+                assigns.sort((a,b) => { const timeA = a.publishAt || new Date(a.createdAt).getTime(); const timeB = b.publishAt || new Date(b.createdAt).getTime(); return timeB - timeA; });
+                assigns.forEach(d => { container.insertAdjacentHTML('beforeend', createAssignmentCard(d)); count++; });
                 if(count === 0) container.innerHTML = '<p class="text-slate-500 w-full text-center py-10 col-span-full">لا توجد واجبات حالياً أو لم يحن موعد نشرها بعد.</p>'; 
             }); 
         }
@@ -802,9 +823,7 @@
         function createLessonCard(d) { 
             const views = window.watchedLessonsCounts[d.id] || 0;
             const isLocked = views >= MAX_VIEWS;
-            
-            let btnHTML = '';
-            let lockBadge = '';
+            let btnHTML = ''; let lockBadge = '';
 
             if (isLocked) {
                 btnHTML = `<button disabled class="w-full bg-slate-100 text-slate-400 py-2.5 rounded-xl font-bold cursor-not-allowed mt-auto flex items-center justify-center gap-2"><i class="ph-bold ph-lock-key"></i> مغلق (تم تجاوز الحد)</button>`;
@@ -819,24 +838,42 @@
                 <div class="w-12 h-12 ${isLocked ? 'bg-slate-100 text-slate-400' : 'bg-indigo-50 text-primary'} rounded-xl flex items-center justify-center mb-4"><i class="ph-fill ph-monitor-play text-2xl"></i></div>
                 <h3 class="font-black text-lg mb-2 text-slate-800">${d.title}</h3>
                 <p class="text-sm text-slate-500 mb-4 flex-grow line-clamp-2">${d.description || 'لا يوجد وصف متاح.'}</p>
-                
                 <div class="bg-slate-50 rounded-lg p-2.5 mb-4 flex items-center justify-between border border-slate-100">
                     <span class="text-xs font-bold text-slate-500"><i class="ph-bold ph-eye"></i> عدد المشاهدات</span>
                     <span class="text-xs font-black ${isLocked ? 'text-red-500' : 'text-primary'}">${views} من ${MAX_VIEWS}</span>
                 </div>
-                
                 ${btnHTML}
             </div>`; 
         }
 
         function createAssignmentCard(d) { return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center mb-4"><i class="ph-fill ph-file-pdf text-2xl"></i></div><h3 class="font-black text-lg mb-4 text-slate-800">${d.title}</h3><button onclick="openAssignmentModal('${d.title}','${d.driveUrl}')" class="w-full bg-orange-50 text-orange-600 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors mt-auto flex items-center justify-center gap-2"><span>افتح الواجب</span> <i class="ph-bold ph-arrow-up-right"></i></button></div>`; }
-        function createCourseCard(d) {
-            const img = d.imageUrl || 'https://images.unsplash.com/photo-1632559648939-f9c34e7bb419?auto=format&fit=crop&w=800&q=80'; 
+        
+        function createCourseCard(id, d) {
+            const img = d.imageUrl || 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80'; 
             const isSubscribed = window.approvedCourses && window.approvedCourses.includes(d.title);
             const btnClass = isSubscribed ? "bg-teal-50 text-teal-600 hover:bg-teal-500 hover:text-white" : "bg-slate-50 text-slate-500 hover:bg-slate-200";
             const btnText = isSubscribed ? "تم الاشتراك" : "اشترك الآن";
             const btnAction = isSubscribed ? `switchTab('lessons')` : `switchTab('subscriptions')`;
-            return `<div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-full"><h3 class="font-black text-lg mb-2">${d.title}</h3><p class="text-sm text-slate-500 mb-6 flex-grow">${d.description || ''}</p><button onclick="${btnAction}" class="w-full py-2.5 rounded-xl font-bold transition-colors ${btnClass}">${btnText}</button></div>`; 
+            
+            return `
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-md transition-shadow">
+                <div class="h-48 relative cursor-pointer" onclick="openCourseModal('${id}')">
+                    <img src="${img}" alt="${d.title}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/10 hover:bg-black/0 transition-colors"></div>
+                    ${d.badge ? `<span class="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary text-xs font-black px-3 py-1 rounded-lg">${d.badge}</span>` : ''}
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="font-black text-lg mb-2 text-slate-800 cursor-pointer hover:text-primary transition-colors" onclick="openCourseModal('${id}')">${d.title}</h3>
+                    <p class="text-sm text-slate-500 mb-4 line-clamp-2">${d.description || 'لا يوجد وصف متاح.'}</p>
+                    <button onclick="openCourseModal('${id}')" class="text-xs font-bold text-primary hover:underline self-start mb-4">تفاصيل الكورس كاملة</button>
+                    <div class="mt-auto pt-4 border-t border-slate-50">
+                        <button onclick="${btnAction}" class="w-full py-2.5 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 ${btnClass}">
+                            <span>${btnText}</span>
+                            ${isSubscribed ? '<i class="ph-bold ph-check-circle"></i>' : '<i class="ph-bold ph-lock-key"></i>'}
+                        </button>
+                    </div>
+                </div>
+            </div>`; 
         }
     </script>
 </body>
