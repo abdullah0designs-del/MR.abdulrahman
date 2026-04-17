@@ -26,7 +26,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        body { font-family: 'Tajawal', sans-serif; -webkit-tap-highlight-color: transparent; }
+        /* Anti-select & Anti-print styles */
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        @media print { body { display: none !important; } }
+
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: slideUp 0.4s ease-out forwards; }
         
@@ -35,6 +51,7 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
+        /* Stable Iframe Container */
         .iframe-container { position: relative; width: 100%; height: 75vh; overflow: hidden; border-radius: 1rem; }
         .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; background: #fff;}
         
@@ -98,8 +115,11 @@
             <div class="h-64 sm:h-80 w-full relative shrink-0">
                 <img id="courseModalImg" src="" class="w-full h-full object-cover" alt="غلاف الكورس">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
-                <div class="absolute bottom-6 right-6 left-6 text-white">
-                    <span id="courseModalBadge" class="hidden bg-primary text-white text-xs font-bold px-3 py-1 rounded-lg mb-3"></span>
+                <div class="absolute bottom-6 right-6 left-6 text-white flex flex-col items-start">
+                    <div class="flex gap-2 mb-3">
+                        <span id="courseModalBadge" class="hidden bg-primary text-white text-xs font-bold px-3 py-1 rounded-lg"></span>
+                        <span id="courseModalPrice" class="hidden bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-lg"></span>
+                    </div>
                     <h2 id="courseModalTitle" class="text-3xl font-black leading-tight"></h2>
                 </div>
             </div>
@@ -126,7 +146,7 @@
             <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2"></div>
             <div class="relative z-10 flex flex-col items-center text-center max-w-md">
                 <div class="w-64 h-64 rounded-[2.5rem] bg-indigo-50 border-4 border-white shadow-2xl mb-8 flex items-center justify-center overflow-hidden relative">
-                    <img src="img1.jpg" alt="صورة الأستاذ" class="w-full h-full object-cover">
+                    <img src="img1.jpg" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=400&q=80'" alt="صورة الأستاذ" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/40 to-transparent"></div>
                     <div class="absolute bottom-4 left-0 w-full text-center">
                         <span class="bg-white/90 backdrop-blur text-primary font-black px-4 py-1.5 rounded-full text-sm shadow-sm">مـــســـتـــر عـــبـــد الـــــرحـــمــــن حـــسـنــي</span>
@@ -142,9 +162,8 @@
                 
                 <!-- Mobile Header Image -->
                 <div class="lg:hidden flex flex-col items-center text-center mb-8">
-                    <!-- تم استبدال الأيقونة بالصورة لتظهر في الموبايل -->
                     <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-[1.5rem] bg-indigo-50 border-4 border-white shadow-xl mb-4 flex items-center justify-center overflow-hidden relative">
-                        <img src="img1.jpg" alt="صورة الأستاذ" class="w-full h-full object-cover">
+                        <img src="img1.jpg" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=400&q=80'" alt="صورة الأستاذ" class="w-full h-full object-cover">
                     </div>
                     <h2 class="text-2xl font-black text-slate-900 mb-2">English Genius</h2>
                     <span class="bg-indigo-50 text-primary font-black px-4 py-1.5 rounded-full text-xs shadow-sm border border-indigo-100">مـــســـتـــر عـــبـــد الـــــرحـــمــــن حـــسـنــي</span>
@@ -279,7 +298,13 @@
                         </div>
                         <form id="paymentForm" class="space-y-4 border-t border-slate-100 pt-6">
                             <h3 class="text-lg font-bold text-slate-800 mb-2">تأكيد الدفع</h3>
-                            <div><label class="block text-sm font-bold text-slate-700 mb-1.5">اختر الكورس للاشتراك</label><select id="payItem" required class="form-input font-bold text-primary cursor-pointer"><option value="" disabled selected>جاري تحميل الكورسات المتاحة...</option></select></div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1.5">اختر الكورس للاشتراك</label>
+                                <!-- تمت إضافة الدالة updatePrice() عند تغيير الكورس لكتابة السعر تلقائياً -->
+                                <select id="payItem" required class="form-input font-bold text-primary cursor-pointer" onchange="updatePrice()">
+                                    <option value="" disabled selected>جاري تحميل الكورسات المتاحة...</option>
+                                </select>
+                            </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div><label class="block text-sm font-bold text-slate-700 mb-1.5">المبلغ المحول</label><input type="number" id="payAmount" required class="form-input" placeholder="المبلغ بالجنية"></div>
                                 <div><label class="block text-sm font-bold text-slate-700 mb-1.5">رقم المحفظة المحول منها</label><input type="tel" id="paySender" required class="form-input" placeholder="010..." pattern="[0-9]{11}"></div>
@@ -299,8 +324,8 @@
                 <div class="flex items-center justify-between mb-8"><h2 class="text-2xl font-black text-slate-900">مكتبة الدروس</h2></div>
                 <div id="lessons-locked" class="hidden flex-col items-center justify-center py-20 text-center bg-white rounded-[2rem] shadow-soft border border-slate-100">
                     <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-lock-key text-4xl"></i></div>
-                    <h3 class="text-xl font-black text-slate-800 mb-2">المحتوى مقفل</h3>
-                    <p class="text-slate-500 font-medium mb-6">يجب أن يكون لديك اشتراك مفعل في أحد الكورسات لعرض الدروس الخاصة به.</p>
+                    <h3 class="text-xl font-black text-slate-800 mb-2">المحتوى مقفل أو غير متاح</h3>
+                    <p class="text-slate-500 font-medium mb-6">يجب أن يكون لديك اشتراك مفعل في أحد الكورسات المتاحة حالياً لعرض الدروس الخاصة به.</p>
                     <button onclick="switchTab('subscriptions')" class="bg-primary hover:bg-primaryHover text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md">الذهاب للاشتراكات</button>
                 </div>
                 <div id="lessons-unlocked" class="hidden">
@@ -317,8 +342,8 @@
                 <div class="flex items-center justify-between mb-8"><h2 class="text-2xl font-black text-slate-900">ملفات الواجبات</h2></div>
                 <div id="assignments-locked" class="hidden flex-col items-center justify-center py-20 text-center bg-white rounded-[2rem] shadow-soft border border-slate-100">
                     <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300"><i class="ph-fill ph-lock-key text-4xl"></i></div>
-                    <h3 class="text-xl font-black text-slate-800 mb-2">المحتوى مقفل</h3>
-                    <p class="text-slate-500 font-medium mb-6">يجب أن يكون لديك اشتراك مفعل في أحد الكورسات لعرض الواجبات الخاصة به.</p>
+                    <h3 class="text-xl font-black text-slate-800 mb-2">المحتوى مقفل أو غير متاح</h3>
+                    <p class="text-slate-500 font-medium mb-6">يجب أن يكون لديك اشتراك مفعل في أحد الكورسات المتاحة حالياً لعرض الواجبات الخاصة به.</p>
                     <button onclick="switchTab('subscriptions')" class="bg-primary hover:bg-primaryHover text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md">الذهاب للاشتراكات</button>
                 </div>
                 <div id="assignments-unlocked" class="hidden">
@@ -445,13 +470,45 @@
         window.allCoursesList = {}; 
         
         // --- View Counter System ---
-        window.watchedLessonsCounts = {}; // { lessonId: viewsCount }
+        window.watchedLessonsCounts = {}; 
         const MAX_VIEWS = 4;
 
         let unsubscribeProfile = null, unsubscribeLessons = null, unsubscribeAssignments = null, unsubscribeCourses = null, unsubscribePayments = null, unsubscribeQuestions = null, unsubscribeWatched = null;
         let compressedImageBase64 = null;
 
         const phoneToEmail = (phone) => `${phone}@student.eng.com`;
+
+        // ------------- Security Protocols (Anti-Screenshot/Record) -------------
+
+        // Disable PrintScreen Key & clear clipboard - ONLY when video is open
+        window.addEventListener('keyup', (e) => {
+            const modal = document.getElementById('driveModal');
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'PrintScreen' || e.keyCode === 44) {
+                    navigator.clipboard.writeText('تسجيل الشاشة أو التقاط الصور غير مسموح به.').catch(()=>{});
+                    showNotification("غير مسموح بالتقاط الشاشة أثناء عرض الفيديو", "error");
+                }
+            }
+        });
+
+        // Disable Right Click - ONLY when video is open
+        document.addEventListener('contextmenu', e => {
+            const modal = document.getElementById('driveModal');
+            if (!modal.classList.contains('hidden')) {
+                e.preventDefault();
+            }
+        });
+
+        // Disable Developer Tools shortcuts - ONLY when video is open
+        document.addEventListener('keydown', e => {
+            const modal = document.getElementById('driveModal');
+            if (!modal.classList.contains('hidden')) {
+                if (e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'u' || e.key === 'c' || e.key === 'x')) { e.preventDefault(); }
+                if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'j' || e.key === 'c')) { e.preventDefault(); }
+                if (e.key === 'F12') { e.preventDefault(); }
+            }
+        });
+        // ------------------------------------------------------------------------
 
         function showNotification(msg, type = 'success') {
             const notif = document.getElementById('notification'); const icon = document.getElementById('notif-icon');
@@ -469,14 +526,20 @@
             if(unsubscribePayments) { unsubscribePayments(); unsubscribePayments = null; }
             if(unsubscribeQuestions) { unsubscribeQuestions(); unsubscribeQuestions = null; }
             if(unsubscribeWatched) { unsubscribeWatched(); unsubscribeWatched = null; }
-            window.approvedCourses = [];
-            window.watchedLessonsCounts = {};
-            window.allCoursesList = {};
+            window.approvedCourses = []; window.watchedLessonsCounts = {}; window.allCoursesList = {};
         }
 
         window.toggleAuth = function(type) {
             document.getElementById('login-form-container').classList.toggle('hidden', type === 'register');
             document.getElementById('register-form-container').classList.toggle('hidden', type === 'login');
+        };
+
+        // --- ميزة إضافة السعر التلقائي لخانة المبلغ المالي ---
+        window.updatePrice = function() {
+            const select = document.getElementById('payItem');
+            const price = select.options[select.selectedIndex].getAttribute('data-price');
+            const amountInput = document.getElementById('payAmount');
+            if(price) amountInput.value = price;
         };
 
         onAuthStateChanged(auth, (user) => {
@@ -519,14 +582,12 @@
             if (unsubscribeWatched) unsubscribeWatched();
             unsubscribeWatched = onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'watched_lessons'), (snapshot) => {
                 window.watchedLessonsCounts = {};
-                snapshot.forEach(doc => {
-                    window.watchedLessonsCounts[doc.id] = doc.data().views || 0;
-                });
+                snapshot.forEach(doc => { window.watchedLessonsCounts[doc.id] = doc.data().views || 0; });
                 if (window.currentLessonCourse) fetchLessons(); 
             });
         }
 
-        // Image Handling
+        // Image Handling (Ask Section)
         const imageInput = document.getElementById('questionImage');
         const imagePreview = document.getElementById('imagePreview');
         const uploadPlaceholder = document.getElementById('uploadPlaceholder');
@@ -634,12 +695,13 @@
                     let replyHtml = '';
                     if (isAnswered && data.replyText) replyHtml = `<div class="mt-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 relative"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary rounded-r-xl"></div><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-xs"><i class="ph-fill ph-chalkboard-teacher"></i></div><span class="text-xs font-black text-slate-800">رد المستر:</span></div></div><p class="text-sm text-slate-700 font-medium leading-relaxed whitespace-pre-wrap mr-8">${data.replyText}</p></div>`;
 
-                    const card = `<div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden mb-4"><div class="flex justify-between items-start mb-3"><span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span><div class="flex items-center gap-2"><button onclick="toggleSaveQuestion('${data.id}', ${isSaved})" class="${isSaved ? 'text-primary bg-indigo-50 border-indigo-200' : 'text-slate-400 bg-slate-50 border-slate-200'} border px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all" title="حفظ الرسالة"><i class="${isSaved ? 'ph-fill' : 'ph-bold'} ph-bookmark-simple"></i> ${isSaved ? 'محفوظة' : 'حفظ'}</button><span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span></div></div><p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>${imageHtml}${replyHtml}</div>`;
+                    const card = `<div class="question-card bg-white p-5 rounded-2xl relative overflow-hidden mb-4"><div class="flex justify-between items-start mb-3"><span class="text-[10px] font-bold text-slate-400"><i class="ph-bold ph-calendar-blank"></i> ${data.dateFormatted}</span><div class="flex items-center gap-2"><button onclick="toggleSaveQuestion('${data.id}', ${isSaved})" class="${isSaved ? 'text-primary bg-indigo-50 border-indigo-200' : 'text-slate-400 bg-slate-50 border-slate-200'} border px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all" title="حفظ الرسالة"><i class="${isSaved ? 'ph-fill' : 'ph-bookmark-simple'} ph-bookmark-simple"></i> ${isSaved ? 'محفوظة' : 'حفظ'}</button><span class="${statusColor} text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 border border-current/10"><i class="ph-bold ${statusIcon}"></i> ${statusText}</span></div></div><p class="text-sm font-bold text-slate-800 leading-relaxed whitespace-pre-wrap">${data.text}</p>${imageHtml}${replyHtml}</div>`;
                     container.insertAdjacentHTML('beforeend', card);
                 });
             }, (err) => { if(err.code!=='permission-denied') console.error(err); });
         }
 
+        // ---------- Fetch Courses with Sync Protection ----------
         function fetchCourses() {
             if (!currentUser) return;
             if (unsubscribeCourses) unsubscribeCourses();
@@ -648,13 +710,22 @@
                 document.getElementById('courses-container').innerHTML = '';
                 window.allCoursesList = {};
                 
-                if (snapshot.empty) { document.getElementById('courses-container').innerHTML = '<p class="text-center w-full text-slate-500 col-span-full">لا توجد كورسات متاحة الآن.</p>'; return; }
+                if (snapshot.empty) { 
+                    document.getElementById('courses-container').innerHTML = '<p class="text-center w-full text-slate-500 col-span-full">لا توجد كورسات متاحة الآن.</p>'; 
+                    updateContentAccess(); // Sync update immediately
+                    return; 
+                }
+                
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     window.allCoursesList[doc.id] = data;
                     document.getElementById('courses-container').insertAdjacentHTML('beforeend', createCourseCard(doc.id, data));
-                    document.getElementById('payItem').insertAdjacentHTML('beforeend', `<option value="${data.title}">${data.title}</option>`);
+                    
+                    // --- إضافة السعر للاختيارات في قائمة الدفع ---
+                    const priceText = data.price ? ` (${data.price} ج.م)` : '';
+                    document.getElementById('payItem').insertAdjacentHTML('beforeend', `<option value="${data.title}" data-price="${data.price || ''}">${data.title}${priceText}</option>`);
                 });
+                updateContentAccess(); // Re-sync access whenever courses change
             });
         }
 
@@ -679,6 +750,33 @@
             });
         }
 
+        // ---------- Content Access Sync logic ----------
+        function updateContentAccess() {
+            // Check existing courses dynamically against user approved payments
+            const availableCourseTitles = Object.values(window.allCoursesList).map(c => c.title);
+            const validApprovedCourses = window.approvedCourses.filter(title => availableCourseTitles.includes(title));
+
+            const hasCourses = validApprovedCourses.length > 0;
+            document.getElementById('lessons-locked').classList.toggle('hidden', hasCourses); 
+            document.getElementById('lessons-unlocked').classList.toggle('hidden', !hasCourses);
+            document.getElementById('assignments-locked').classList.toggle('hidden', hasCourses); 
+            document.getElementById('assignments-unlocked').classList.toggle('hidden', !hasCourses);
+            
+            if (hasCourses) {
+                const opts = validApprovedCourses.map(c => `<option value="${c}">${c}</option>`).join('');
+                document.getElementById('lessons-course-selector').innerHTML = opts; 
+                document.getElementById('assignments-course-selector').innerHTML = opts;
+                
+                if (!validApprovedCourses.includes(window.currentLessonCourse)) window.currentLessonCourse = validApprovedCourses[0];
+                if (!validApprovedCourses.includes(window.currentAssignmentCourse)) window.currentAssignmentCourse = validApprovedCourses[0];
+                
+                document.getElementById('lessons-course-selector').value = window.currentLessonCourse; 
+                document.getElementById('assignments-course-selector').value = window.currentAssignmentCourse;
+                
+                fetchLessons(); fetchAssignments();
+            }
+        }
+
         document.getElementById('paymentForm').addEventListener('submit', async (e) => {
             e.preventDefault(); if (!currentUser) return;
             const btn = document.getElementById('btnSubmitPayment'); const ogText = btn.innerHTML; btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin"></i> جاري الإرسال...'; btn.disabled = true;
@@ -690,19 +788,6 @@
             } catch(e) { showNotification("حدث خطأ", "error"); } finally { btn.innerHTML = ogText; btn.disabled = false; }
         });
 
-        function updateContentAccess() {
-            const hasCourses = window.approvedCourses.length > 0;
-            document.getElementById('lessons-locked').classList.toggle('hidden', hasCourses); document.getElementById('lessons-unlocked').classList.toggle('hidden', !hasCourses);
-            document.getElementById('assignments-locked').classList.toggle('hidden', hasCourses); document.getElementById('assignments-unlocked').classList.toggle('hidden', !hasCourses);
-            if (hasCourses) {
-                const opts = window.approvedCourses.map(c => `<option value="${c}">${c}</option>`).join('');
-                document.getElementById('lessons-course-selector').innerHTML = opts; document.getElementById('assignments-course-selector').innerHTML = opts;
-                if (!window.approvedCourses.includes(window.currentLessonCourse)) window.currentLessonCourse = window.approvedCourses[0];
-                if (!window.approvedCourses.includes(window.currentAssignmentCourse)) window.currentAssignmentCourse = window.approvedCourses[0];
-                document.getElementById('lessons-course-selector').value = window.currentLessonCourse; document.getElementById('assignments-course-selector').value = window.currentAssignmentCourse;
-                fetchLessons(); fetchAssignments();
-            }
-        }
         window.changeActiveCourse = function(type, val) { if (type === 'lessons') { window.currentLessonCourse = val; fetchLessons(); } else { window.currentAssignmentCourse = val; fetchAssignments(); } }
         
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -730,9 +815,15 @@
             document.getElementById('courseModalTitle').innerText = d.title;
             document.getElementById('courseModalImg').src = d.imageUrl || 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80';
             document.getElementById('courseModalDesc').innerText = d.description || 'لا يوجد وصف متاح.';
+            
             const badgeEl = document.getElementById('courseModalBadge');
             if (d.badge) { badgeEl.innerText = d.badge; badgeEl.classList.remove('hidden'); badgeEl.classList.add('inline-block'); } 
             else { badgeEl.classList.add('hidden'); badgeEl.classList.remove('inline-block'); }
+
+            // --- إظهار السعر داخل التفاصيل ---
+            const priceEl = document.getElementById('courseModalPrice');
+            if (d.price) { priceEl.innerText = `${d.price} ج.م`; priceEl.classList.remove('hidden'); priceEl.classList.add('inline-block'); } 
+            else { priceEl.classList.add('hidden'); priceEl.classList.remove('inline-block'); }
 
             const modal = document.getElementById('courseModal');
             const content = document.getElementById('courseModalContent');
@@ -855,7 +946,10 @@
         
         function createCourseCard(id, d) {
             const img = d.imageUrl || 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80'; 
-            const isSubscribed = window.approvedCourses && window.approvedCourses.includes(d.title);
+            const availableCourseTitles = Object.values(window.allCoursesList).map(c => c.title);
+            const validApprovedCourses = window.approvedCourses.filter(title => availableCourseTitles.includes(title));
+            const isSubscribed = validApprovedCourses.includes(d.title);
+
             const btnClass = isSubscribed ? "bg-teal-50 text-teal-600 hover:bg-teal-500 hover:text-white" : "bg-slate-50 text-slate-500 hover:bg-slate-200";
             const btnText = isSubscribed ? "تم الاشتراك" : "اشترك الآن";
             const btnAction = isSubscribed ? `switchTab('lessons')` : `switchTab('subscriptions')`;
@@ -865,7 +959,10 @@
                 <div class="h-48 relative cursor-pointer" onclick="openCourseModal('${id}')">
                     <img src="${img}" alt="${d.title}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/10 hover:bg-black/0 transition-colors"></div>
-                    ${d.badge ? `<span class="absolute top-3 right-3 bg-white/90 backdrop-blur text-primary text-xs font-black px-3 py-1 rounded-lg">${d.badge}</span>` : ''}
+                    
+                    <!-- عرض السعر والـ Badge -->
+                    ${d.price ? `<span class="absolute top-3 right-3 bg-emerald-500/95 backdrop-blur text-white text-xs font-black px-3 py-1 rounded-lg shadow-sm">${d.price} ج.م</span>` : ''}
+                    ${d.badge ? `<span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-primary text-xs font-black px-3 py-1 rounded-lg shadow-sm">${d.badge}</span>` : ''}
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <h3 class="font-black text-lg mb-2 text-slate-800 cursor-pointer hover:text-primary transition-colors" onclick="openCourseModal('${id}')">${d.title}</h3>
